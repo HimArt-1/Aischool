@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عين الشاهين - ShaheenEye | SCAR-EYE</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-content">
+            <div class="shaheen-logo">
+                <svg viewBox="0 0 200 200" class="falcon-icon">
+                    <defs>
+                        <linearGradient id="falconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path class="falcon-path" fill="url(#falconGrad)" d="M100,20 L120,60 L180,80 L140,100 L160,180 L100,140 L40,180 L60,100 L20,80 L80,60 Z"/>
+                    <circle class="eye-scan" cx="100" cy="85" r="15" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                    <circle cx="100" cy="85" r="8" fill="#00f0ff"/>
+                </svg>
+            </div>
+            <h1 class="loading-title">عين الشاهين</h1>
+            <p class="loading-subtitle">SCAR-EYE System Initializing...</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-status">تحميل وحدات النظام...</p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="app hidden">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <div class="logo">
+                    <svg viewBox="0 0 50 50" class="logo-icon">
+                        <path fill="#00f0ff" d="M25,5 L30,15 L45,20 L35,25 L40,45 L25,35 L10,45 L15,25 L5,20 L20,15 Z"/>
+                        <circle cx="25" cy="21" r="4" fill="#fff"/>
+                    </svg>
+                    <div class="logo-text">
+                        <span class="logo-ar">عين الشاهين</span>
+                        <span class="logo-en">ShaheenEye</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="tagline">
+                    <span class="tagline-text">From Predicting Crime… to Predicting Crime Evolution</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="system-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-text">النظام نشط</span>
+                </div>
+                <div class="datetime" id="datetime"></div>
+                <button class="demo-btn" id="startDemo">
+                    <i class="fas fa-play"></i>
+                    بدء العرض
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <button class="nav-item active" data-panel="overview">
+                <i class="fas fa-th-large"></i>
+                <span>لوحة التحكم</span>
+            </button>
+            <button class="nav-item" data-panel="hyperspectral">
+                <i class="fas fa-eye"></i>
+                <span>التحليل الطيفي</span>
+            </button>
+            <button class="nav-item" data-panel="illuminance">
+                <i class="fas fa-lightbulb"></i>
+                <span>الإضاءة التكيفية</span>
+            </button>
+            <button class="nav-item" data-panel="wargaming">
+                <i class="fas fa-chess"></i>
+                <span>المحاكاة العدائية</span>
+            </button>
+            <button class="nav-item" data-panel="audio">
+                <i class="fas fa-wave-square"></i>
+                <span>التحليل الصوتي</span>
+            </button>
+            <button class="nav-item" data-panel="alerts">
+                <i class="fas fa-bell"></i>
+                <span>التنبيهات</span>
+                <span class="alert-badge" id="alertCount">0</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Panel -->
+            <section id="overview-panel" class="panel active">
+                <div class="panel-grid">
+                    <!-- Digital Twin Map -->
+                    <div class="card digital-twin-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-map-marked-alt"></i> التوأم الرقمي - Digital Twin</h3>
+                            <div class="card-actions">
+                                <button class="card-btn" id="toggleHeatmap"><i class="fas fa-fire"></i></button>
+                                <button class="card-btn" id="toggleCameras"><i class="fas fa-video"></i></button>
+                                <button class="card-btn" id="toggleLights"><i class="fas fa-lightbulb"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="digitalTwinMap" class="digital-twin-container">
+                                <canvas id="twinCanvas"></canvas>
+                                <div class="map-overlay" id="mapOverlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon hyperspectral">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="spectralScans">0</span>
+                                <span class="stat-label">مسح طيفي</span>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 12%
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon illuminance">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="lightAdjustments">0</span>
+                                <span class="stat-label">تعديل إضاءة</span>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 8%
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon wargaming">
+                                <i class="fas fa-chess"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="wargameRounds">0</span>
+                                <span class="stat-label">جولة محاكاة</span>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 25%
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon audio">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="audioEvents">0</span>
+                                <span class="stat-label">حدث صوتي</span>
+                            </div>
+                            <div class="stat-trend down">
+                                <i class="fas fa-arrow-down"></i> 3%
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Feed -->
+                    <div class="card live-feed-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-broadcast-tower"></i> البث المباشر</h3>
+                            <span class="live-indicator"><span class="pulse"></span> مباشر</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="feed-grid" id="liveFeedGrid">
+                                <!-- Camera feeds will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Timeline -->
+                    <div class="card timeline-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> سجل الأحداث</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline" id="activityTimeline">
+                                <!-- Timeline events will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hyperspectral Panel -->
+            <section id="hyperspectral-panel" class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-eye"></i> بصمة المواد الطيفية - Hyperspectral Material Fingerprinting</h2>
+                    <p class="panel-subtitle">"We don't just see colors… we see materials."</p>
+                </div>
+                <div class="panel-content">
+                    <div class="hyperspectral-grid">
+                        <!-- Spectral Analysis View -->
+                        <div class="card spectral-view-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-camera"></i> المشهد الحالي</h3>
+                                <div class="view-toggle">
+                                    <button class="toggle-btn active" data-view="rgb">RGB</button>
+                                    <button class="toggle-btn" data-view="spectral">Spectral</button>
+                                    <button class="toggle-btn" data-view="analysis">Analysis</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="spectral-viewer" id="spectralViewer">
+                                    <canvas id="spectralCanvas"></canvas>
+                                    <div class="scan-overlay" id="scanOverlay"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Material Database -->
+                        <div class="card material-db-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-database"></i> قاعدة بيانات المواد</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="material-list" id="materialList">
+                                    <!-- Materials will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Spectral Graph -->
+                        <div class="card spectral-graph-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-chart-line"></i> التحليل الطيفي</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="spectralGraph"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Detection Results -->
+                        <div class="card detection-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-search"></i> نتائج الكشف</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="detection-results" id="detectionResults">
+                                    <!-- Results will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Illuminance Panel -->
+            <section id="illuminance-panel" class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-lightbulb"></i> الاستجابة الضوئية التكيفية - Adaptive Illuminance Response</h2>
+                    <p class="panel-subtitle">"We silently bend the light to see more… without anyone noticing."</p>
+                </div>
+                <div class="panel-content">
+                    <div class="illuminance-grid">
+                        <!-- Light Control Map -->
+                        <div class="card light-map-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-map"></i> خريطة الإنارة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="light-map" id="lightMap">
+                                    <canvas id="lightMapCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Light Poles Control -->
+                        <div class="card poles-control-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-sliders-h"></i> التحكم في الأعمدة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="poles-list" id="polesList">
+                                    <!-- Poles will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Spectrum Control -->
+                        <div class="card spectrum-control-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-rainbow"></i> طيف الإضاءة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="spectrum-control">
+                                    <div class="spectrum-bar" id="spectrumBar"></div>
+                                    <div class="spectrum-sliders" id="spectrumSliders">
+                                        <!-- Sliders will be added dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Illuminance Log -->
+                        <div class="card illuminance-log-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-list"></i> سجل التعديلات</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="illuminance-log" id="illuminanceLog">
+                                    <!-- Log entries will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wargaming Panel -->
+            <section id="wargaming-panel" class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-chess"></i> المحاكاة العدائية - Adversarial AI Wargaming</h2>
+                    <p class="panel-subtitle">"Our AI plays against a criminal AI… so it can beat real criminals later."</p>
+                </div>
+                <div class="panel-content">
+                    <div class="wargaming-grid">
+                        <!-- Battle Arena -->
+                        <div class="card battle-arena-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-gamepad"></i> ساحة المعركة</h3>
+                                <div class="battle-controls">
+                                    <button class="battle-btn" id="startBattle">
+                                        <i class="fas fa-play"></i> بدء المحاكاة
+                                    </button>
+                                    <button class="battle-btn" id="pauseBattle" disabled>
+                                        <i class="fas fa-pause"></i> إيقاف
+                                    </button>
+                                    <button class="battle-btn" id="resetBattle">
+                                        <i class="fas fa-redo"></i> إعادة
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="battle-arena" id="battleArena">
+                                    <canvas id="battleCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Stats -->
+                        <div class="ai-stats-container">
+                            <!-- Red AI -->
+                            <div class="card ai-card red-ai">
+                                <div class="card-header">
+                                    <h3><i class="fas fa-user-secret"></i> Red-AI (المهاجم)</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="ai-avatar red">
+                                        <i class="fas fa-skull"></i>
+                                    </div>
+                                    <div class="ai-stats">
+                                        <div class="ai-stat">
+                                            <span class="stat-name">نسبة النجاح</span>
+                                            <div class="progress-bar">
+                                                <div class="progress red" id="redSuccessRate" style="width: 45%"></div>
+                                            </div>
+                                            <span class="stat-value" id="redSuccessValue">45%</span>
+                                        </div>
+                                        <div class="ai-stat">
+                                            <span class="stat-name">المحاولات</span>
+                                            <span class="stat-value" id="redAttempts">0</span>
+                                        </div>
+                                        <div class="ai-stat">
+                                            <span class="stat-name">التكتيكات المكتشفة</span>
+                                            <span class="stat-value" id="redTactics">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Blue AI -->
+                            <div class="card ai-card blue-ai">
+                                <div class="card-header">
+                                    <h3><i class="fas fa-shield-alt"></i> Blue-AI (المدافع)</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="ai-avatar blue">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="ai-stats">
+                                        <div class="ai-stat">
+                                            <span class="stat-name">نسبة الكشف</span>
+                                            <div class="progress-bar">
+                                                <div class="progress blue" id="blueDetectionRate" style="width: 55%"></div>
+                                            </div>
+                                            <span class="stat-value" id="blueDetectionValue">55%</span>
+                                        </div>
+                                        <div class="ai-stat">
+                                            <span class="stat-name">عمليات الكشف</span>
+                                            <span class="stat-value" id="blueDetections">0</span>
+                                        </div>
+                                        <div class="ai-stat">
+                                            <span class="stat-name">الدفاعات المطورة</span>
+                                            <span class="stat-value" id="blueDefenses">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Battle Log -->
+                        <div class="card battle-log-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-scroll"></i> سجل المعركة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="battle-log" id="battleLog">
+                                    <!-- Battle events will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Round Counter -->
+                        <div class="card round-counter-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-sync"></i> عداد الجولات</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="round-display">
+                                    <span class="round-number" id="roundNumber">0</span>
+                                    <span class="round-label">جولة</span>
+                                </div>
+                                <div class="round-stats">
+                                    <div class="round-stat">
+                                        <span class="label">انتصارات Red</span>
+                                        <span class="value" id="redWins">0</span>
+                                    </div>
+                                    <div class="round-stat">
+                                        <span class="label">انتصارات Blue</span>
+                                        <span class="value" id="blueWins">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audio Panel -->
+            <section id="audio-panel" class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-wave-square"></i> الارتباط الصوتي المكاني - Audio-Visual Spatial Correlation</h2>
+                    <p class="panel-subtitle">"At night, we hear first… then we see."</p>
+                </div>
+                <div class="panel-content">
+                    <div class="audio-grid">
+                        <!-- Audio Heatmap -->
+                        <div class="card audio-map-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-map"></i> خريطة الصوت الحرارية</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="audio-map" id="audioMap">
+                                    <canvas id="audioMapCanvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Waveform Display -->
+                        <div class="card waveform-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-wave-square"></i> الموجة الصوتية</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="waveformCanvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Microphone Status -->
+                        <div class="card mic-status-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-microphone"></i> الميكروفونات</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mic-grid" id="micGrid">
+                                    <!-- Microphones will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Audio Events -->
+                        <div class="card audio-events-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-list"></i> الأحداث الصوتية المكتشفة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="audio-events" id="audioEventsList">
+                                    <!-- Events will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sound Classification -->
+                        <div class="card sound-class-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-tags"></i> تصنيف الأصوات</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="sound-categories" id="soundCategories">
+                                    <!-- Categories will be added dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alerts Panel -->
+            <section id="alerts-panel" class="panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-bell"></i> مركز التنبيهات</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="alerts-container">
+                        <div class="alerts-filters">
+                            <button class="filter-btn active" data-filter="all">الكل</button>
+                            <button class="filter-btn" data-filter="critical">حرج</button>
+                            <button class="filter-btn" data-filter="warning">تحذير</button>
+                            <button class="filter-btn" data-filter="info">معلومات</button>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <!-- Alerts will be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Demo Mode Overlay -->
+        <div id="demoOverlay" class="demo-overlay hidden">
+            <div class="demo-content">
+                <div class="demo-header">
+                    <h2 id="demoTitle">المشهد 1</h2>
+                    <p id="demoSubtitle">ليلة هادئة... ليست هادئة</p>
+                </div>
+                <div class="demo-body" id="demoBody">
+                    <!-- Demo content will be added dynamically -->
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-control-btn" id="demoPrev"><i class="fas fa-chevron-right"></i> السابق</button>
+                    <div class="demo-progress">
+                        <span id="demoStep">1</span> / <span id="demoTotal">4</span>
+                    </div>
+                    <button class="demo-control-btn" id="demoNext">التالي <i class="fas fa-chevron-left"></i></button>
+                </div>
+                <button class="demo-close" id="demoClose"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <!-- Alert Toast Container -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/digitalTwin.js"></script>
+    <script src="js/hyperspectral.js"></script>
+    <script src="js/illuminance.js"></script>
+    <script src="js/wargaming.js"></script>
+    <script src="js/audioVisual.js"></script>
+    <script src="js/alerts.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
