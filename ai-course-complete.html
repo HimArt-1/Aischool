@@ -1,280 +1,0 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دورة الذكاء الاصطناعي التفاعلية الشاملة</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap">
-</head>
-<body>
-    <div class="navbar">
-        <a href="#intro">🏠 المقدمة</a>
-        <a href="#unit1">🤖 العقل المبدع</a>
-        <a href="#unit2">💻 كن المبرمج</a>
-        <a href="#unit3">🎨 الفن التوليدي</a>
-        <a href="#unit4">✍️ إعلام المستقبل</a>
-        <a href="#unit5">🚀 بصمتك</a>
-    </div>
-
-    <div class="container">
-        <!-- المقدمة -->
-        <div class="section" id="intro">
-            <h1>🚀 انطلق في رحلة الذكاء الاصطناعي التفاعلية</h1>
-            <p class="intro-text">
-                "مرحباً بك في المستقبل! اكتشف كيف يُحدث الذكاء الاصطناعي ثورة في عالمنا، وتعلّم كيف تسخّر قوة الآلة للتفكير، الإبداع، وبناء الغد."
-            </p>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <div class="feature-title">الذكاء التوليدي</div>
-                    <p>تعلم كيف تصنع الآلة محتوى جديداً من العدم</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <div class="feature-title">البرمجة الذكية</div>
-                    <p>اكتب برامج ذكاء اصطناعي بنفسك بسهولة</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <div class="feature-title">الإبداع الفني</div>
-                    <p>أنشئ صوراً ولوحات فنية مدهشة</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✍️</div>
-                    <div class="feature-title">المحتوى الإبداعي</div>
-                    <p>اكتب نصوصاً وفيديوهات احترافية</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <div class="feature-title">مشاريع عملية</div>
-                    <p>طبّق ما تعلمته في مشاريع حقيقية</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎓</div>
-                    <div class="feature-title">تعلم عملي</div>
-                    <p>أدوات مجانية وتجارب تفاعلية مباشرة</p>
-                </div>
-            </div>
-
-            <div class="game-section">
-                <h2 class="game-title">🎮 تحدي العقل: هل هو إنسان أم آلة؟</h2>
-                <div class="question-card">
-                    <div id="question" style="font-weight:bold; font-size:1.3em; margin-bottom:20px;"></div>
-                    <div style="text-align:center;">
-                        <button onclick="checkAnswer('ai')">🤖 ذكاء اصطناعي</button>
-                        <button onclick="checkAnswer('human')">👤 إنسان</button>
-                    </div>
-                    <div class="quiz-feedback" id="feedback"></div>
-                </div>
-                <div style="text-align:center; margin-top:20px; font-size:1.2em; font-weight:bold;">
-                    النقاط: <span id="score">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- الوحدة الأولى -->
-        <div class="section" id="unit1">
-            <h2>الوحدة الأولى: العقل المبدع للآلة - الذكاء التوليدي</h2>
-            <p class="intro-text">جرّب بنفسك قوة النماذج التوليدية! شاهد كيف يمكن للآلة أن تفهم حوارك، تولّد أفكاراً، وتجيب على أعقد الأسئلة كأنها تمتلك عقلاً بشرياً.</p>
-            
-            <div class="content-card">
-                <strong>🤖 اختبر النماذج المجانية:</strong>
-                <p>اكتب سؤالك هنا وجرب الإجابة:</p>
-                <input type="text" id="aiQuestion" placeholder="مثال: اشرح لي الثقوب السوداء بطريقة بسيطة...">
-                <button onclick="showAIAnswer()">جرّب الإجابة!</button>
-                <div id="aiAnswer" style="margin-top:15px; padding:15px; background:#1a1a2e; border-radius:8px; display:none; border: 1px solid #0f3460;"></div>
-            </div>
-
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <strong>ChatGPT</strong>
-                    <p>روبوت محادثة ذكي يفهم كل شيء</p>
-                    <a href="https://chat.openai.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Google Gemini</strong>
-                    <p>نموذج ذكي من جوجل متقدم جداً</p>
-                    <a href="https://gemini.google.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Poe</strong>
-                    <p>منصة تجمع عدة نماذج ذكية</p>
-                    <a href="https://poe.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>HuggingFace</strong>
-                    <p>مستودع نماذج ذكاء اصطناعي مفتوح</p>
-                    <a href="https://huggingface.co/spaces" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-            </div>
-
-            <div class="challenge-box">
-                <strong>🎯 تحدي الوحدة:</strong>
-                <p>اسأل الذكاء الاصطناعي سؤالاً غريباً ومشوقاً، وشارك النتيجة مع زملائك! هل الإجابة كانت منطقية أم مجنونة؟</p>
-            </div>
-        </div>
-
-        <!-- الوحدة الثانية -->
-        <div class="section" id="unit2">
-            <h2>الوحدة الثانية: كن أنت المبرمج - بناء نماذج الذكاء الاصطناعي</h2>
-            <p class="intro-text">لا تكن مجرد مستخدم، كن المطور! تعلم كتابة أكواد حقيقية وبناء نماذج ذكية قادرة على تحليل الصور والبيانات بدقة مذهلة.</p>
-            
-            <div class="content-card">
-                <strong>💻 كود بايثون بسيط للتعرف على الصور:</strong>
-                <div class="code-block">import tensorflow as tf
-from tensorflow import keras
-
-# نموذج بسيط
-model = keras.Sequential([
-    keras.layers.Flatten(input_shape=(28,28)),
-    keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(10, activation='softmax')
-])
-print(model.summary())</div>
-            </div>
-
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <strong>Google Colab</strong>
-                    <p>محرر كود مجاني على السحابة</p>
-                    <a href="https://colab.research.google.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Replit</strong>
-                    <p>منصة برمجة سهلة وسريعة</p>
-                    <a href="https://replit.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Teachable Machine</strong>
-                    <p>درّب نموذج ذكاء بعدة نقرات فقط</p>
-                    <a href="https://teachablemachine.withgoogle.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-            </div>
-
-            <div class="challenge-box">
-                <strong>🎯 تحدي الوحدة:</strong>
-                <p>استخدم Teachable Machine لتدريب نموذج يتعرف على حركاتك اليدوية أو الأشياء من حولك! سهل جداً ومشوق!</p>
-            </div>
-        </div>
-
-        <!-- الوحدة الثالثة -->
-        <div class="section" id="unit3">
-            <h2>الوحدة الثالثة: من فكرة إلى تحفة فنية - الفن التوليدي</h2>
-            <p class="intro-text">حوّل كلماتك إلى لوحات فنية مذهلة. أطلق العنان لخيالك ودع الذكاء الاصطناعي يرسم لك صوراً تتجاوز كل التوقعات.</p>
-            
-            <div class="content-card">
-                <strong>🎨 اكتب وصفاً لصورة تريد أن يصنعها الذكاء:</strong>
-                <textarea id="artPrompt" rows="3" placeholder="مثال: شجرة ذهبية تلمع على سطح كوكب أرجواني تحت سماء حمراء..."></textarea>
-                <button onclick="alert('انسخ الوصف وجرب أحد الأدوات أدناه!')">جرّب توليد صورة!</button>
-            </div>
-
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <strong>DALL·E</strong>
-                    <p>صور احترافية من النصوص</p>
-                    <a href="https://www.bing.com/images/create/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Craiyon</strong>
-                    <p>رسم مجاني وسريع جداً</p>
-                    <a href="https://www.craiyon.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Canva AI</strong>
-                    <p>تصاميم ولوحات فنية رائعة</p>
-                    <a href="https://www.canva.com/ai-image-generator/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Midjourney</strong>
-                    <p>صور احترافية عالية الجودة</p>
-                    <a href="https://www.midjourney.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-            </div>
-
-            <div class="challenge-box">
-                <strong>🎯 تحدي الوحدة:</strong>
-                <p>أنشئ صورة فنية من خيالك واحفظها! ثم شاركها وقل: هل كان الذكاء قادراً على فهم خيالك؟</p>
-            </div>
-        </div>
-
-        <!-- الوحدة الرابعة -->
-        <div class="section" id="unit4">
-            <h2>الوحدة الرابعة: إعلام المستقبل - صناعة المحتوى بالذكاء الاصطناعي</h2>
-            <p class="intro-text">أطلق العنان لكاتب السيناريو والمخرج بداخلك. تعلم كيف يصوغ الذكاء الاصطناعي نصوصاً احترافية ويحولها إلى مقاطع فيديو مذهلة بأصوات واقعية.</p>
-            
-            <div class="content-card">
-                <strong>✍️ اكتب نصاً أو قصة قصيرة:</strong>
-                <textarea id="storyPrompt" rows="3" placeholder="مثال: كتب طالب قصة عن روبوت يكتشف كوكب جديد..."></textarea>
-                <button onclick="alert('جرب إعادة الصياغة باستخدام الأدوات أدناه!')">جرّب إعادة الصياغة!</button>
-            </div>
-
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <strong>QuillBot</strong>
-                    <p>إعادة صياغة النصوص وتحسينها</p>
-                    <a href="https://quillbot.com/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Synthesia</strong>
-                    <p>فيديو من النص بشكل احترافي</p>
-                    <a href="https://www.synthesia.io/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Kaiber</strong>
-                    <p>فيديو إبداعي من النصوص</p>
-                    <a href="https://www.kaiber.ai/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-                <div class="tool-card">
-                    <strong>Eleven Labs</strong>
-                    <p>صوت احترافي للنصوص</p>
-                    <a href="https://elevenlabs.io/" target="_blank" class="tool-link">جرب الآن</a>
-                </div>
-            </div>
-
-            <div class="challenge-box">
-                <strong>🎯 تحدي الوحدة:</strong>
-                <p>اكتب قصة قصيرة، أعد صياغتها بالذكاء، ثم حولها إلى فيديو! شارك الفيديو مع الجميع!</p>
-            </div>
-        </div>
-
-        <!-- الوحدة الخامسة -->
-        <div class="section" id="unit5">
-            <h2>الوحدة الخامسة: بصمتك في المستقبل - المشاريع والتحديات</h2>
-            <p class="intro-text">حان وقت تطبيق مهاراتك. شارك مشروعك المبتكر، تفاعل مع مجتمع المبدعين، ونافس على لقب أفضل مشروع ذكاء اصطناعي.</p>
-            
-            <div class="content-card">
-                <strong>🚀 شارك مشروعك المبتكر:</strong>
-                <p>اسم المشروع أو الفكرة:</p>
-                <input type="text" id="projectTitle" placeholder="مثال: روبوت يرسم بناءً على وصفك...">
-                <p>شرح الفكرة أو رابط تجربتك:</p>
-                <textarea id="projectDesc" rows="3" placeholder="اشرح كيف استخدمت الذكاء الاصطناعي هنا..."></textarea>
-                <button onclick="alert('تم! شكراً لمشاركتك الرائعة!')">أرسل مشروعك</button>
-            </div>
-
-            <div class="content-card">
-                <strong>💬 انضم إلى ساحة النقاش:</strong>
-                <textarea id="discussion" rows="2" placeholder="شارك أفكارك وتجاربك مع الجميع..."></textarea>
-                <button onclick="alert('تم إرسال تعليقك!')">أرسل النقاش</button>
-            </div>
-
-            <div class="challenge-box">
-                <strong>🏆 مسابقة أفضل مشروع:</strong>
-                <p>صوّت على أفضل مشروع! 👍</p>
-                <button>أعجبني هذا المشروع 👍</button>
-            </div>
-        </div>
-
-        <div class="footer">
-            <h3>أنت الآن جزء من مستقبل الذكاء الاصطناعي! 🌟</h3>
-            <p>واصل رحلتك في التعلم، الإبداع، وصناعة الابتكار</p>
-            <p style="margin-top:15px; font-size:0.9em;">© 2025 دورة الذكاء الاصطناعي التفاعلية | جميع الحقوق محفوظة</p>
-        </div>
-    </div>
-
-    <div class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
-
-    <script src="script.js"></script>
-</body>
-</html>
