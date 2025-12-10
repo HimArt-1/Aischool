@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCAR-EYE | Adversarial Wargame Module</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="scar-eye-body">
+    <main class="scar-eye-wargame">
+      <header class="wargame-header">
+        <div>
+          <p class="eyebrow">SCAR-EYE DIGITAL RANGE · MOCK DATA ONLY</p>
+          <h1>Adversarial AI Wargame Module</h1>
+          <p class="subhead">
+            DigitalTwinMap orchestrates a stylized duel between Red (attacker) and Blue (SCAR-EYE) agents.
+          </p>
+        </div>
+        <div class="status-panel">
+          <span>Status</span>
+          <strong data-status-msg>Awaiting operator start.</strong>
+        </div>
+      </header>
+
+      <section class="wargame-map-panel">
+        <canvas id="digitalTwinCanvas" width="820" height="520"></canvas>
+        <aside class="legend">
+          <div class="legend__item">
+            <span class="swatch swatch--red"></span>
+            <small>Red AI trajectory & hide point</small>
+          </div>
+          <div class="legend__item">
+            <span class="swatch swatch--blue"></span>
+            <small>Blue AI predicted intercept</small>
+          </div>
+          <div class="legend__item">
+            <span class="swatch swatch--mint"></span>
+            <small>Hyperspectral overlays (mock)</small>
+          </div>
+          <div class="legend__item legend__illum">
+            <span>Adaptive Lux</span>
+            <strong data-illuminance>0.58 au</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section class="wargame-stats">
+        <article class="stat-card">
+          <span>Rounds</span>
+          <strong data-round-count>0 / 200</strong>
+          <small>Configured cycles</small>
+        </article>
+        <article class="stat-card">
+          <span>Detection Rate</span>
+          <strong data-detection-rate>0.0%</strong>
+          <small>Blue AI performance</small>
+        </article>
+        <article class="stat-card stat-card--chart">
+          <span>Confidence Trend</span>
+          <canvas id="confidenceChart" width="320" height="120"></canvas>
+          <small>Rolling ~80 rounds</small>
+        </article>
+      </section>
+
+      <section class="wargame-controls">
+        <button data-action="toggle">Start Simulation</button>
+        <button data-action="step">Step Once</button>
+        <button data-action="reset">Reset</button>
+      </section>
+
+      <section class="wargame-log">
+        <header>
+          <h2>Wargame Dashboard</h2>
+          <p>Live reasoning feed · Mock educational data</p>
+        </header>
+        <div class="log-list" data-log-list></div>
+      </section>
+    </main>
+
+    <script type="module" src="./AdversarialWargameModule.js"></script>
+  </body>
+</html>
