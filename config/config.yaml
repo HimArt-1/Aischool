@@ -1,0 +1,86 @@
+# ShaheenEye (SCAR-EYE) Configuration
+
+system:
+  name: "ShaheenEye"
+  version: "1.0.0"
+  tagline: "From Predicting Crime... to Predicting Crime Evolution"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:5173"
+
+# Digital Twin Configuration
+digital_twin:
+  map_size: [1000, 1000]  # meters
+  resolution: 0.5  # meters per pixel
+  update_frequency: 30  # Hz
+
+# Hyperspectral Configuration
+hyperspectral:
+  enabled: true
+  wavelength_range: [400, 2500]  # nm
+  spectral_bands: 224
+  confidence_threshold: 0.75
+  materials_database: "data/materials.db"
+
+# Adaptive Lighting Configuration
+lighting:
+  enabled: true
+  subtle_increase: 0.12  # 12% increase
+  adaptation_speed: 2.0  # seconds
+  spectrum_modes:
+    - "normal"
+    - "infrared_enhanced"
+    - "hyperspectral_optimized"
+
+# Audio Processing Configuration
+audio:
+  enabled: true
+  microphone_array_size: 8
+  sample_rate: 48000
+  detection_threshold: 0.6
+  spatial_resolution: 2.0  # meters
+  events_of_interest:
+    - "drilling"
+    - "dragging"
+    - "breaking_glass"
+    - "metal_cutting"
+    - "digging"
+
+# Adversarial Wargaming Configuration
+wargaming:
+  enabled: true
+  red_ai:
+    name: "Red-AI"
+    difficulty: "adaptive"
+    learning_rate: 0.001
+  blue_ai:
+    name: "Blue-AI (SCAR-EYE)"
+    learning_rate: 0.0005
+  simulation:
+    episodes_per_session: 1000
+    max_steps_per_episode: 500
+    parallel_environments: 8
+
+# Detection & Alerts
+detection:
+  confidence_threshold: 0.70
+  alert_levels:
+    low: 0.60
+    medium: 0.75
+    high: 0.90
+  fusion_weights:
+    visual: 0.35
+    hyperspectral: 0.30
+    audio: 0.20
+    thermal: 0.15
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/shaheeneye.log"
