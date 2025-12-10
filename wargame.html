@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المحاكاة العدائية - Adversarial AI Wargaming | ShaheenEye</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Wargame Styles -->
+    <link rel="stylesheet" href="css/wargame.css">
+    
+    <style>
+        /* Additional standalone page styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0e17;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Loading Screen */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0e17;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+        
+        .loading-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+        }
+        
+        .loading-logo svg path {
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f0ff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loading-subtext {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: #1a2234;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f0ff, #0080ff);
+            border-radius: 2px;
+            animation: loadProgress 2s ease-out forwards;
+        }
+        
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Navigation Bar */
+        .wg-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            background: #111827;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .wg-navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .wg-navbar-logo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .wg-navbar-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));
+        }
+        
+        .wg-navbar-title {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wg-navbar-title span:first-child {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00f0ff;
+        }
+        
+        .wg-navbar-title span:last-child {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+        
+        .wg-navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .wg-navbar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .wg-navbar-link:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: #00f0ff;
+            color: #fff;
+        }
+        
+        .wg-navbar-link.active {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: #00f0ff;
+            color: #00f0ff;
+        }
+        
+        .wg-navbar-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .wg-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Main Container */
+        #wargameContainer {
+            min-height: calc(100vh - 60px);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #00f0ff;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0080ff;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wg-navbar {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            
+            .wg-navbar-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="wg-standalone">
+    <!-- Loading Screen -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-logo">
+            <svg viewBox="0 0 200 200">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#logoGrad)" d="M100,20 L120,60 L180,80 L140,100 L160,180 L100,140 L40,180 L60,100 L20,80 L80,60 Z"/>
+                <circle cx="100" cy="85" r="15" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                <circle cx="100" cy="85" r="8" fill="#00f0ff"/>
+            </svg>
+        </div>
+        <h1 class="loading-text">عين الشاهين</h1>
+        <p class="loading-subtext">Adversarial AI Wargaming Module</p>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="wg-navbar">
+        <a href="index.html" class="wg-navbar-brand">
+            <div class="wg-navbar-logo">
+                <svg viewBox="0 0 50 50">
+                    <path fill="#00f0ff" d="M25,5 L30,15 L45,20 L35,25 L40,45 L25,35 L10,45 L15,25 L5,20 L20,15 Z"/>
+                    <circle cx="25" cy="21" r="4" fill="#fff"/>
+                </svg>
+            </div>
+            <div class="wg-navbar-title">
+                <span>عين الشاهين</span>
+                <span>ShaheenEye</span>
+            </div>
+        </a>
+        
+        <div class="wg-navbar-links">
+            <a href="index.html" class="wg-navbar-link">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+            <a href="wargame.html" class="wg-navbar-link active">
+                <i class="fas fa-chess"></i>
+                المحاكاة العدائية
+            </a>
+        </div>
+        
+        <div class="wg-navbar-status">
+            <span class="wg-status-dot"></span>
+            <span>Simulation Ready</span>
+        </div>
+    </nav>
+    
+    <!-- Wargame Dashboard Container -->
+    <div id="wargameContainer"></div>
+    
+    <!-- Scripts -->
+    <script src="js/adversarialWargame.js"></script>
+    <script>
+        // Initialize wargame dashboard when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loading screen after animation
+            setTimeout(() => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.classList.add('hidden');
+                
+                // Initialize dashboard
+                setTimeout(() => {
+                    const dashboard = new WargameDashboard('wargameContainer');
+                    
+                    // Store reference globally for debugging
+                    window.wargameDashboard = dashboard;
+                    
+                    console.log('🎮 Adversarial AI Wargaming Module initialized');
+                    console.log('📊 Components available:');
+                    console.log('   - DigitalTwinMap');
+                    console.log('   - RedAI');
+                    console.log('   - BlueAI');
+                    console.log('   - SimulationEngine');
+                    console.log('   - WargameDashboard');
+                }, 300);
+            }, 2500);
+        });
+    </script>
+</body>
+</html>
