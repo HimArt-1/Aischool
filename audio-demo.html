@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الارتباط الصوتي المكاني - Spatial Audio Correlation | ShaheenEye</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Spatial Audio Styles -->
+    <link rel="stylesheet" href="css/spatialAudio.css">
+    
+    <style>
+        /* Additional standalone page styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0e17;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Loading Screen */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0e17;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-icon {
+            font-size: 4rem;
+            color: #f97316;
+            margin-bottom: 1.5rem;
+            animation: audioPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes audioPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+        
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loading-subtext {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: #1a2234;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f97316, #ef4444);
+            border-radius: 2px;
+            animation: loadProgress 2s ease-out forwards;
+        }
+        
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Navigation Bar */
+        .sa-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            background: #111827;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sa-navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .sa-navbar-logo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .sa-navbar-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.5));
+        }
+        
+        .sa-navbar-title {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sa-navbar-title span:first-child {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f97316;
+        }
+        
+        .sa-navbar-title span:last-child {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+        
+        .sa-navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sa-navbar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sa-navbar-link:hover {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: #f97316;
+            color: #fff;
+        }
+        
+        .sa-navbar-link.active {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: #f97316;
+            color: #f97316;
+        }
+        
+        .sa-navbar-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .sa-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f97316;
+            box-shadow: 0 0 10px #f97316;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Main Container */
+        #audioContainer {
+            min-height: calc(100vh - 60px);
+            padding: 1rem;
+        }
+        
+        /* Custom Audio Dashboard Styles */
+        .sa-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .sa-dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sa-dashboard-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+        
+        .sa-dashboard-title h1 i {
+            color: #f97316;
+            margin-left: 0.5rem;
+        }
+        
+        .sa-dashboard-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0.25rem 0 0 0;
+        }
+        
+        .sa-dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+        
+        .sa-main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .sa-side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .sa-panel {
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .sa-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: #1a2234;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sa-panel-header h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0;
+            color: #fff;
+        }
+        
+        .sa-panel-header h3 i {
+            color: #f97316;
+            margin-left: 0.5rem;
+        }
+        
+        .sa-panel-body {
+            padding: 1rem;
+        }
+        
+        /* Map Container */
+        .sa-map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: #0a0e17;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #saMapCanvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Microphones List */
+        .sa-mics-wrapper {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .sa-mic-entry {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            background: #1a2234;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border-right: 3px solid #00f0ff;
+        }
+        
+        .sa-mic-entry.active {
+            border-right-color: #10b981;
+        }
+        
+        .sa-mic-entry.detecting {
+            border-right-color: #f97316;
+            animation: micDetect 0.5s ease-in-out;
+        }
+        
+        @keyframes micDetect {
+            0%, 100% { background: #1a2234; }
+            50% { background: rgba(249, 115, 22, 0.2); }
+        }
+        
+        .sa-mic-entry-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sa-mic-entry-level {
+            width: 50px;
+            height: 4px;
+            background: #1e2a3a;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .sa-mic-entry-level-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00f0ff, #0080ff);
+            transition: width 0.1s linear;
+        }
+        
+        /* Events List */
+        .sa-events-wrapper {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .sa-event-entry {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            background: #1a2234;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border-right: 3px solid #64748b;
+            animation: eventSlide 0.3s ease;
+        }
+        
+        @keyframes eventSlide {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .sa-event-entry.suspicious { border-right-color: #f97316; }
+        .sa-event-entry.confirmed { border-right-color: #10b981; }
+        .sa-event-entry.pending { border-right-color: #f59e0b; }
+        
+        .sa-event-entry-icon {
+            font-size: 1.2rem;
+        }
+        
+        .sa-event-entry-content {
+            flex: 1;
+        }
+        
+        .sa-event-entry-type {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .sa-event-entry-meta {
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+        
+        .sa-event-entry-confidence {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
+        .sa-event-entry-confidence.high { color: #10b981; }
+        .sa-event-entry-confidence.medium { color: #f59e0b; }
+        .sa-event-entry-confidence.low { color: #ef4444; }
+        
+        /* Stats Grid */
+        .sa-stats-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .sa-stat-box {
+            padding: 0.75rem;
+            background: #1a2234;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .sa-stat-box-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f97316;
+        }
+        
+        .sa-stat-box-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        
+        /* Trigger Buttons */
+        .sa-triggers-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .sa-trigger-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            background: #1a2234;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sa-trigger-button:hover {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: #f97316;
+            color: #f97316;
+        }
+        
+        .sa-trigger-button .icon {
+            font-size: 1.3rem;
+        }
+        
+        /* Mode Toggle */
+        .sa-mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .sa-mode-btn {
+            padding: 0.4rem 0.8rem;
+            background: #1a2234;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #64748b;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sa-mode-btn.active {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: #f97316;
+            color: #f97316;
+        }
+        
+        /* Footer */
+        .sa-dashboard-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sa-dashboard-footer-info {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .sa-dashboard-footer-tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #f97316;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a2234;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #f97316;
+            border-radius: 3px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sa-dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sa-map-wrapper {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sa-navbar {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            
+            .sa-navbar-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .sa-dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .sa-triggers-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="sa-standalone">
+    <!-- Loading Screen -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-icon">🔊</div>
+        <h1 class="loading-text">الارتباط الصوتي المكاني</h1>
+        <p class="loading-subtext">Spatial Audio Correlation Module</p>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="sa-navbar">
+        <a href="index.html" class="sa-navbar-brand">
+            <div class="sa-navbar-logo">
+                <svg viewBox="0 0 50 50">
+                    <path fill="#f97316" d="M25,5 L30,15 L45,20 L35,25 L40,45 L25,35 L10,45 L15,25 L5,20 L20,15 Z"/>
+                    <circle cx="25" cy="21" r="4" fill="#fff"/>
+                </svg>
+            </div>
+            <div class="sa-navbar-title">
+                <span>عين الشاهين</span>
+                <span>ShaheenEye</span>
+            </div>
+        </a>
+        
+        <div class="sa-navbar-links">
+            <a href="index.html" class="sa-navbar-link">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+            <a href="wargame.html" class="sa-navbar-link">
+                <i class="fas fa-chess"></i>
+                المحاكاة العدائية
+            </a>
+            <a href="audio-demo.html" class="sa-navbar-link active">
+                <i class="fas fa-wave-square"></i>
+                الارتباط الصوتي
+            </a>
+            <a href="presentation.html" class="sa-navbar-link">
+                <i class="fas fa-tv"></i>
+                العرض
+            </a>
+        </div>
+        
+        <div class="sa-navbar-status">
+            <span class="sa-status-dot"></span>
+            <span>Audio Module Ready</span>
+        </div>
+    </nav>
+    
+    <!-- Audio Dashboard Container -->
+    <div id="audioContainer">
+        <div class="sa-dashboard">
+            <!-- Header -->
+            <div class="sa-dashboard-header">
+                <div class="sa-dashboard-title">
+                    <h1><i class="fas fa-wave-square"></i> الارتباط الصوتي المكاني</h1>
+                    <p class="sa-dashboard-subtitle">"At night, we hear first… then we see."</p>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div class="sa-mode-toggle">
+                        <button class="sa-mode-btn active" id="nightModeBtn">🌙 ليلي</button>
+                        <button class="sa-mode-btn" id="dayModeBtn">☀️ نهاري</button>
+                    </div>
+                    <button class="sa-btn sa-btn-primary" id="toggleAudioBtn">
+                        <i class="fas fa-play"></i> تفعيل النظام
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Main Grid -->
+            <div class="sa-dashboard-grid">
+                <!-- Main Panel -->
+                <div class="sa-main-panel">
+                    <!-- Map Panel -->
+                    <div class="sa-panel">
+                        <div class="sa-panel-header">
+                            <h3><i class="fas fa-map"></i> خريطة التوأم الرقمي مع الطبقة الصوتية</h3>
+                            <span id="modeIndicator" style="
+                                padding: 0.25rem 0.75rem;
+                                background: rgba(139, 92, 246, 0.2);
+                                border: 1px solid #8b5cf6;
+                                border-radius: 12px;
+                                font-size: 0.75rem;
+                                color: #8b5cf6;
+                            ">🌙 الوضع الليلي</span>
+                        </div>
+                        <div class="sa-panel-body">
+                            <div class="sa-map-wrapper" id="mapContainer">
+                                <canvas id="saMapCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trigger Events Panel -->
+                    <div class="sa-panel">
+                        <div class="sa-panel-header">
+                            <h3><i class="fas fa-bolt"></i> توليد أحداث صوتية (للاختبار)</h3>
+                        </div>
+                        <div class="sa-panel-body">
+                            <div class="sa-triggers-wrapper">
+                                <button class="sa-trigger-button" data-event="dragging">
+                                    <span class="icon">📦</span>
+                                    <span>جرّ جسم ثقيل</span>
+                                </button>
+                                <button class="sa-trigger-button" data-event="drilling">
+                                    <span class="icon">🔧</span>
+                                    <span>صوت حفر</span>
+                                </button>
+                                <button class="sa-trigger-button" data-event="impact">
+                                    <span class="icon">💥</span>
+                                    <span>ضربات/تكسير</span>
+                                </button>
+                                <button class="sa-trigger-button" data-event="footsteps">
+                                    <span class="icon">👣</span>
+                                    <span>خطوات</span>
+                                </button>
+                                <button class="sa-trigger-button" data-event="voices">
+                                    <span class="icon">🗣️</span>
+                                    <span>أصوات بشرية</span>
+                                </button>
+                                <button class="sa-trigger-button" data-event="vehicle">
+                                    <span class="icon">🚗</span>
+                                    <span>مركبة</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Side Panel -->
+                <div class="sa-side-panel">
+                    <!-- Stats Panel -->
+                    <div class="sa-panel">
+                        <div class="sa-panel-header">
+                            <h3><i class="fas fa-chart-bar"></i> الإحصائيات</h3>
+                        </div>
+                        <div class="sa-panel-body">
+                            <div class="sa-stats-wrapper">
+                                <div class="sa-stat-box">
+                                    <div class="sa-stat-box-value" id="statMics">0</div>
+                                    <div class="sa-stat-box-label">ميكروفونات نشطة</div>
+                                </div>
+                                <div class="sa-stat-box">
+                                    <div class="sa-stat-box-value" id="statEvents">0</div>
+                                    <div class="sa-stat-box-label">إجمالي الأحداث</div>
+                                </div>
+                                <div class="sa-stat-box">
+                                    <div class="sa-stat-box-value" id="statSuspicious">0</div>
+                                    <div class="sa-stat-box-label">أحداث مريبة</div>
+                                </div>
+                                <div class="sa-stat-box">
+                                    <div class="sa-stat-box-value" id="statConfirmed">0</div>
+                                    <div class="sa-stat-box-label">مؤكدة</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Microphones Panel -->
+                    <div class="sa-panel">
+                        <div class="sa-panel-header">
+                            <h3><i class="fas fa-microphone"></i> الميكروفونات</h3>
+                        </div>
+                        <div class="sa-panel-body">
+                            <div class="sa-mics-wrapper" id="micsList">
+                                <div style="text-align: center; color: #64748b; padding: 1rem;">
+                                    <i class="fas fa-microphone-slash"></i>
+                                    <p style="margin-top: 0.5rem;">قم بتفعيل النظام لعرض الميكروفونات</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Events Panel -->
+                    <div class="sa-panel">
+                        <div class="sa-panel-header">
+                            <h3><i class="fas fa-list"></i> الأحداث المكتشفة</h3>
+                        </div>
+                        <div class="sa-panel-body">
+                            <div class="sa-events-wrapper" id="eventsList">
+                                <div style="text-align: center; color: #64748b; padding: 1rem;">
+                                    <i class="fas fa-volume-mute"></i>
+                                    <p style="margin-top: 0.5rem;">في انتظار الأحداث الصوتية...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="sa-dashboard-footer">
+                <div class="sa-dashboard-footer-info">
+                    <i class="fas fa-info-circle" style="color: #f59e0b; margin-left: 0.5rem;"></i>
+                    هذه محاكاة تعليمية فقط - لا تستخدم ميكروفونات حقيقية
+                </div>
+                <div class="sa-dashboard-footer-tagline">
+                    "في الليل، نسمع أولاً... ثم نرى"
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/adversarialWargame.js"></script>
+    <script src="js/spatialAudioCorrelation.js"></script>
+    <script>
+        // Global references
+        let digitalTwin = null;
+        let audioModule = null;
+        let isEnabled = false;
+        let currentMode = 'night';
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                initializeAudioDemo();
+            }, 2500);
+        });
+        
+        function initializeAudioDemo() {
+            // Create digital twin for the map
+            digitalTwin = new DigitalTwinMap('saMapCanvas');
+            
+            // Initialize audio module
+            audioModule = new SpatialAudioModule('mapContainer', {
+                digitalTwin: digitalTwin,
+                mode: currentMode,
+                onSuspiciousEvent: handleSuspiciousEvent,
+                onConfirmedEvent: handleConfirmedEvent
+            });
+            
+            // Set up UI
+            setupEventListeners();
+            
+            // Start animation loop for the map
+            startMapAnimation();
+            
+            console.log('🔊 Spatial Audio Correlation Module initialized');
+        }
+        
+        function setupEventListeners() {
+            // Toggle button
+            document.getElementById('toggleAudioBtn').addEventListener('click', toggleAudio);
+            
+            // Mode buttons
+            document.getElementById('nightModeBtn').addEventListener('click', () => setMode('night'));
+            document.getElementById('dayModeBtn').addEventListener('click', () => setMode('day'));
+            
+            // Event trigger buttons
+            document.querySelectorAll('.sa-trigger-button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const eventType = btn.dataset.event;
+                    if (isEnabled && audioModule) {
+                        audioModule.triggerEvent(eventType);
+                    }
+                });
+            });
+        }
+        
+        function toggleAudio() {
+            const btn = document.getElementById('toggleAudioBtn');
+            
+            if (!isEnabled) {
+                audioModule.enable();
+                isEnabled = true;
+                btn.innerHTML = '<i class="fas fa-stop"></i> إيقاف النظام';
+                btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                
+                // Update mics list
+                updateMicsList();
+                
+                // Start stats update
+                startStatsUpdate();
+            } else {
+                audioModule.disable();
+                isEnabled = false;
+                btn.innerHTML = '<i class="fas fa-play"></i> تفعيل النظام';
+                btn.style.background = '';
+                
+                // Clear mics list
+                document.getElementById('micsList').innerHTML = `
+                    <div style="text-align: center; color: #64748b; padding: 1rem;">
+                        <i class="fas fa-microphone-slash"></i>
+                        <p style="margin-top: 0.5rem;">قم بتفعيل النظام لعرض الميكروفونات</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // Update buttons
+            document.getElementById('nightModeBtn').classList.toggle('active', mode === 'night');
+            document.getElementById('dayModeBtn').classList.toggle('active', mode === 'day');
+            
+            // Update indicator
+            const indicator = document.getElementById('modeIndicator');
+            if (mode === 'night') {
+                indicator.innerHTML = '🌙 الوضع الليلي';
+                indicator.style.background = 'rgba(139, 92, 246, 0.2)';
+                indicator.style.borderColor = '#8b5cf6';
+                indicator.style.color = '#8b5cf6';
+            } else {
+                indicator.innerHTML = '☀️ الوضع النهاري';
+                indicator.style.background = 'rgba(245, 158, 11, 0.2)';
+                indicator.style.borderColor = '#f59e0b';
+                indicator.style.color = '#f59e0b';
+            }
+            
+            // Update module mode
+            if (audioModule) {
+                audioModule.setMode(mode);
+            }
+        }
+        
+        function updateMicsList() {
+            if (!audioModule || !audioModule.micArray) return;
+            
+            const mics = audioModule.micArray.getAllMics();
+            const container = document.getElementById('micsList');
+            
+            container.innerHTML = mics.map(mic => `
+                <div class="sa-mic-entry ${mic.active ? 'active' : ''}" id="mic-${mic.id}">
+                    <div class="sa-mic-entry-info">
+                        <span>🎤</span>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">${mic.id}</span>
+                    </div>
+                    <div class="sa-mic-entry-level">
+                        <div class="sa-mic-entry-level-bar" style="width: ${mic.currentLevel * 100}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function startStatsUpdate() {
+            setInterval(() => {
+                if (!isEnabled || !audioModule) return;
+                
+                const stats = audioModule.getStats();
+                document.getElementById('statMics').textContent = stats.micsActive;
+                document.getElementById('statEvents').textContent = stats.totalEvents;
+                document.getElementById('statSuspicious').textContent = stats.suspiciousEvents;
+                document.getElementById('statConfirmed').textContent = stats.confirmedEvents;
+                
+                // Update mic levels
+                if (audioModule.micArray) {
+                    audioModule.micArray.getAllMics().forEach(mic => {
+                        const el = document.getElementById(`mic-${mic.id}`);
+                        if (el) {
+                            const levelBar = el.querySelector('.sa-mic-entry-level-bar');
+                            if (levelBar) {
+                                levelBar.style.width = `${mic.currentLevel * 100}%`;
+                            }
+                            
+                            // Add detecting class if level is high
+                            if (mic.currentLevel > 0.4) {
+                                el.classList.add('detecting');
+                            } else {
+                                el.classList.remove('detecting');
+                            }
+                        }
+                    });
+                }
+                
+                // Update events list
+                updateEventsList();
+            }, 200);
+        }
+        
+        function updateEventsList() {
+            if (!audioModule) return;
+            
+            const events = audioModule.getCorrelatedEvents();
+            const container = document.getElementById('eventsList');
+            
+            if (events.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #64748b; padding: 1rem;">
+                        <i class="fas fa-volume-mute"></i>
+                        <p style="margin-top: 0.5rem;">في انتظار الأحداث الصوتية...</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const icons = {
+                dragging: '📦',
+                drilling: '🔧',
+                impact: '💥',
+                footsteps: '👣',
+                voices: '🗣️',
+                vehicle: '🚗'
+            };
+            
+            container.innerHTML = events.slice(0, 15).map(event => {
+                const confidenceClass = event.confidence > 0.7 ? 'high' : 
+                                        event.confidence > 0.4 ? 'medium' : 'low';
+                const statusClass = event.status === 'confirmed' ? 'confirmed' :
+                                   event.status === 'pending' ? 'pending' : 
+                                   ['dragging', 'drilling', 'impact'].includes(event.eventType) ? 'suspicious' : '';
+                
+                return `
+                    <div class="sa-event-entry ${statusClass}">
+                        <span class="sa-event-entry-icon">${icons[event.eventType] || '🔊'}</span>
+                        <div class="sa-event-entry-content">
+                            <div class="sa-event-entry-type">${event.eventTypeName}</div>
+                            <div class="sa-event-entry-meta">
+                                ${(event.durationMs / 1000).toFixed(1)}s | ${event.micsInvolved} mics
+                            </div>
+                        </div>
+                        <span class="sa-event-entry-confidence ${confidenceClass}">
+                            ${(event.confidence * 100).toFixed(0)}%
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function handleSuspiciousEvent(event) {
+            console.log('⚠️ Suspicious audio event:', event);
+        }
+        
+        function handleConfirmedEvent(event) {
+            console.log('✅ Confirmed audio event:', event);
+        }
+        
+        function startMapAnimation() {
+            function animate() {
+                if (digitalTwin) {
+                    digitalTwin.update(0.016);
+                    digitalTwin.draw();
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>
