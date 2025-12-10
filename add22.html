@@ -1,249 +1,0 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ذكاء، خيال، وصناعة المستقبل — مدرسة الأمير سعود بن جلوي | أ. هيثم الزهراني</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-:root{ --bg:#f5f7fb; --text:#1f2937; --primary:#064a28; --accent:#179a50; --muted:#6b7280; --card:#ffffff; --ring:rgba(23,154,80,.25)}
-.theme-dark{ --bg:#0b1220; --text:#e6eef8; --primary:#06b6d4; --accent:#22d3ee; --muted:#9fb2c8; --card:#0f172a; --ring:rgba(34,211,238,.25)}
-.theme-ghibli{ --bg:#fff7f0; --text:#2b2b2b; --primary:#b35c3a; --accent:#6fbf73; --muted:#7a6f6a; --card:#ffffff; --ring:rgba(111,191,115,.25)}
-
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;line-height:1.7}
-.container{max-width:1100px;margin:0 auto;padding:0 18px}
-.header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid #e5e7eb}
-.header .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:6px 10px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.12)}
-.title-wrap{display:flex;flex-direction:column}
-.title-wrap .title{font-weight:900}
-.title-wrap .sub{font-size:.95rem;color:var(--muted)}
-.theme-switch{display:flex;gap:6px}
-.switch{border:2px solid var(--primary);background:transparent;color:var(--primary);padding:6px 10px;border-radius:999px;cursor:pointer;font-weight:800}
-.hero{padding:46px 0}
-.hero .card{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
-@media (max-width:900px){ .hero .card{grid-template-columns:1fr} }
-.badge{display:inline-block;background:var(--accent);color:#fff;padding:4px 10px;border-radius:999px;font-size:.85rem}
-.card{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:14px;box-shadow:0 12px 28px rgba(0,0,0,.08);padding:18px}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.kpi{background:linear-gradient(180deg,rgba(0,0,0,.02),transparent);border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:14px;text-align:center}
-.kpi b{font-size:1.4rem}
-.section{padding:38px 0}
-.h2{margin:0 0 14px;font-size:1.8rem}
-.grid{display:grid;gap:12px}
-.grid-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.item{border-right:4px solid var(--accent);padding-right:12px;border-radius:12px;background:linear-gradient(90deg,rgba(0,0,0,.02),transparent)}
-.list{margin:0;padding:0 20px}
-.notice{background:rgba(255,255,255,.6);border:1px dashed var(--accent);border-radius:12px;padding:12px}
-.cta{display:inline-block;background:var(--primary);color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:900;box-shadow:0 6px 0 var(--accent);transform:translateY(0);transition:.15s}
-.cta:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--accent)}
-.table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden}
-.table th{background:var(--primary);color:#fff;text-align:right}
-.table th,.table td{padding:10px;border-bottom:1px solid #e5e7eb}
-.accordion .head{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid rgba(0,0,0,.06);border-radius:12px}
-.accordion .panel{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 12px}
-.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding:16px 0;color:var(--muted);text-align:center}
-.ring{box-shadow:0 0 0 6px var(--ring)}
-</style>
-</head>
-<body>
-<header class="header">
-  <div class="container inner">
-    <div class="brand">
-      <div class="logo">AI</div>
-      <div class="title-wrap">
-        <div class="title">ذكاء، خيال، وصناعة المستقبل — مدرسة الأمير سعود بن جلوي</div>
-        <div class="sub">تصميم وإعداد: أ. هيثم الزهراني • صُمم لطلابنا 🇸🇦</div>
-      </div>
-    </div>
-    <div class="theme-switch">
-      <button class="switch" data-theme="light">نمط A</button>
-      <button class="switch" data-theme="dark">نمط B</button>
-      <button class="switch" data-theme="ghibli">نمط C</button>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="card">
-      <div>
-        <span class="badge">للناشئين 12–18</span>
-        <h1 style="margin:10px 0 6px">ابدأ رحلتك مع الذكاء الاصطناعي — من الفضول إلى الإنتاج</h1>
-        <p>موقع تعريفي سريع يعرض فكرة الدورة ومحتواها العملي، مع أمثلة ومختبرات وروابط مجانية. مناسب للتصفح العام من أي متصفح على طول.</p>
-        <div class="kpis">
-          <div class="kpi"><b>4</b><div>وحدات عملية</div></div>
-          <div class="kpi"><b>10</b><div>مواضيع شيّقة</div></div>
-          <div class="kpi"><b>+15</b><div>نشاط وتمرين</div></div>
-        </div>
-        <p style="margin-top:14px">
-          <a class="cta" href="#units">استكشف المنهج</a>
-          <a class="cta" style="background:#10b981;box-shadow:0 6px 0 #0a8b66" href="#labs">جرّب المختبرات</a>
-        </p>
-      </div>
-      <div>
-        <div class="card ring">
-          <h3 style="margin-top:0">ماذا سيتعلم الطالب؟</h3>
-          <ul class="list">
-            <li>يفهم كيف “تتعرّف” الآلة على الأنماط.</li>
-            <li>يصيغ أوامر (Prompts) ذكية لإنتاج صور ونصوص.</li>
-            <li>يدرّب نموذجًا بسيطًا (بدون كود) وينشره.</li>
-            <li>يمارس التفكير النقدي والأخلاقيات الرقمية.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Topics -->
-  <section class="section" id="topics">
-    <h2 class="h2">عناوين شيّقة — عشرة مواضيع قصيرة</h2>
-    <div class="grid grid-2">
-      <div class="item card"><b>1) كيف تفكر الآلة؟</b><div>الفهم البشري vs. التعرف على الأنماط.</div></div>
-      <div class="item card"><b>2) ما هو النموذج؟</b><div>صندوق يتعلم من أمثلة ويصدر توقعات.</div></div>
-      <div class="item card"><b>3) رحلة البيانات</b><div>جمع → تدريب → تقييم → إطلاق.</div></div>
-      <div class="item card"><b>4) التحيّز</b><div>لماذا تمثيل البيانات مهم؟</div></div>
-      <div class="item card"><b>5) تفكير نقدي</b><div>اقرأ النتائج ولا تنسَ الشك البنّاء.</div></div>
-      <div class="item card"><b>6) AI حولنا</b><div>من الفلاتر لاقتراحات الفيديو.</div></div>
-      <div class="item card"><b>7) وسائط متعددة</b><div>صوت/صورة/نص تتقاطع عبر AI.</div></div>
-      <div class="item card"><b>8) وصف الصور</b><div>قالب أمر ذكي لنتائج أدق.</div></div>
-      <div class="item card"><b>9) تدريب بلا كود</b><div>Teachable Machine عملي.</div></div>
-      <div class="item card"><b>10) مشروع نهائي</b><div>شخصية، قصة، نموذج، عرض.</div></div>
-    </div>
-  </section>
-
-  <!-- Units (Accordion) -->
-  <section class="section" id="units">
-    <h2 class="h2">المنهج — 4 وحدات عملية</h2>
-    <div class="accordion">
-      <div class="card">
-        <div class="head"><b>الوحدة 1: لغة الآلة ومبادئ العمل</b><span>▼</span></div>
-        <div class="panel">
-          <p>يتعرّف الطالب على التعلم الموجّه وغير الموجّه، ويطبّق تحليل مشاعر بسيط في Colab.</p>
-          <ul class="list">
-            <li>نشاط: "تحدي الآلة والإنسان" — من كتب النص؟</li>
-            <li>تمرين: تنظيف بيانات نصية وحساب متوسطات.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card">
-        <div class="head"><b>الوحدة 2: الميديا الإبداعية وصياغة الأوامر</b><span>▼</span></div>
-        <div class="panel">
-          <p>معادلة الأمر الذهبي (الدور + السياق + الأسلوب...). ومعركة Prompts لصورة "روبوت يزرع شجرة".</p>
-          <ul class="list">
-            <li>نشاط: 3 أوامر مختلفة لنفس الهدف وقارن النتائج.</li>
-            <li>تمرين: تحسين أمر زميلك بخمس تعديلات ذكية.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card">
-        <div class="head"><b>الوحدة 3: المشروع والإنتاج</b><span>▼</span></div>
-        <div class="panel">
-          <p>بناء "مصنّف حركات اليد" على Teachable Machine وتصديره لـ TF.js.</p>
-          <ul class="list">
-            <li>نشاط: فئة "لا شيء" لتقليل الأخطاء.</li>
-            <li>تمرين: اختبار تضليل لمعرفة نقاط الضعف.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="card">
-        <div class="head"><b>الوحدة 4: الأخلاقيات والهوية المهنية</b><span>▼</span></div>
-        <div class="panel">
-          <p>تحيز البيانات، الخصوصية، ونقاشات قصيرة حول العدالة والشفافية.</p>
-          <ul class="list">
-            <li>نشاط: مناظرة "هل الآلة عادلة؟"</li>
-            <li>تمرين: صفحة Portfolio على Google Sites.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Labs -->
-  <section class="section" id="labs">
-    <h2 class="h2">مختبرات وتجارب سريعة</h2>
-    <div class="grid grid-3">
-      <a class="card" href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">
-        <b>Teachable Machine</b><div>درّب نموذجًا بلا كود.</div>
-      </a>
-      <a class="card" href="https://huggingface.co/chat" target="_blank" rel="noopener">
-        <b>HuggingFace Chat</b><div>حاور نموذجًا مفتوحًا.</div>
-      </a>
-      <a class="card" href="https://labs.withgoogle.com" target="_blank" rel="noopener">
-        <b>Google Labs</b><div>تجارب مولدات حديثة.</div>
-      </a>
-      <a class="card" href="https://scribblediffusion.com" target="_blank" rel="noopener">
-        <b>Scribble Diffusion</b><div>حوّل اسكتش لصورة.</div>
-      </a>
-      <a class="card" href="https://colab.research.google.com" target="_blank" rel="noopener">
-        <b>Google Colab</b><div>Python في المتصفح.</div>
-      </a>
-      <a class="card" href="https://sites.google.com" target="_blank" rel="noopener">
-        <b>Google Sites</b><div>ابنِ صفحة عرض لمشروعك.</div>
-      </a>
-    </div>
-    <p class="notice" style="margin-top:12px">تنبيه: لا تشارك معلومات شخصية. تعلّم بوعي ومسؤولية.</p>
-  </section>
-
-  <!-- Sample Schedule & FAQ -->
-  <section class="section" id="info">
-    <div class="grid grid-2">
-      <div class="card">
-        <h3 style="margin-top:0">نموذج جدول (ساعة واحدة)</h3>
-        <table class="table">
-          <tr><th>الدقيقة</th><th>النشاط</th></tr>
-          <tr><td>0–10</td><td>تعريف سريع + أمثلة حولنا</td></tr>
-          <tr><td>10–25</td><td>وحدة 1 مختصر + نشاط "من كتب النص؟"</td></tr>
-          <tr><td>25–40</td><td>وحدة 2: أوامر وصورة هدف</td></tr>
-          <tr><td>40–55</td><td>مختبر سريع (تجربة/رابط)</td></tr>
-          <tr><td>55–60</td><td>تقييم سريع + واجب بسيط</td></tr>
-        </table>
-      </div>
-      <div class="card">
-        <h3 style="margin-top:0">أسئلة شائعة</h3>
-        <ul class="list">
-          <li><b>هل المحتوى مجاني؟</b> نعم، الروابط والأدوات المقترحة مجانية.</li>
-          <li><b>هل نحتاج حسابات؟</b> بعض الأدوات تحتاج بريدًا بسيطًا.</li>
-          <li><b>هل يوجد مشروع نهائي؟</b> نعم — صفحة عرض ونتائج واضحة.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  صُمم لطلابنا — تصميم وإعداد: أ. هيثم الزهراني — © 2025
-</footer>
-
-<script>
-// Theme toggle
-const page = document.body
-const saved = localStorage.getItem('pub_theme')
-if(saved){ applyTheme(saved) }
-document.querySelectorAll('.switch').forEach(btn=>{
-  btn.addEventListener('click',()=> applyTheme(btn.dataset.theme))
-})
-function applyTheme(mode){
-  page.classList.remove('theme-dark','theme-ghibli')
-  if(mode==='dark') page.classList.add('theme-dark')
-  if(mode==='ghibli') page.classList.add('theme-ghibli')
-  localStorage.setItem('pub_theme', mode)
-}
-
-// Accordion
-document.querySelectorAll('.accordion .head').forEach(h=>{
-  h.addEventListener('click', ()=>{
-    const panel = h.nextElementSibling
-    const open = panel.style.maxHeight && panel.style.maxHeight !== '0px'
-    document.querySelectorAll('.accordion .panel').forEach(p=>{ p.style.maxHeight='0' })
-    if(!open){ panel.style.maxHeight = panel.scrollHeight + 'px' }
-  })
-})
-</script>
-</body>
-</html>
