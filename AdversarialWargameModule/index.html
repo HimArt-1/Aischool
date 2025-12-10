@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎯 SCAR-EYE Adversarial Wargame</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f23 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+    
+    .page-header {
+      text-align: center;
+      padding: 30px 20px 20px;
+    }
+    
+    .page-title {
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00d4ff, #7b2cbf, #ff4757);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    
+    .page-subtitle {
+      font-size: 16px;
+      color: #888;
+    }
+    
+    .disclaimer {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      padding: 15px 20px;
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      border-radius: 8px;
+      font-size: 13px;
+      color: #ff8888;
+      text-align: center;
+    }
+    
+    .disclaimer strong {
+      color: #ff4757;
+    }
+    
+    #wargame-dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      font-size: 12px;
+      border-top: 1px solid #222;
+      margin-top: 40px;
+    }
+    
+    .footer a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+    
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      color: #666;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #222;
+      border-top-color: #00d4ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Info cards */
+    .info-section {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .info-card {
+      background: rgba(30, 30, 50, 0.6);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .info-card-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .info-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #00d4ff;
+      margin-bottom: 8px;
+    }
+    
+    .info-card-text {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.6;
+    }
+    
+    /* Quick guide */
+    .quick-guide {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(0, 212, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 12px;
+    }
+    
+    .quick-guide h3 {
+      color: #00d4ff;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    .quick-guide ol {
+      padding-left: 25px;
+      color: #bbb;
+      font-size: 14px;
+      line-height: 2;
+    }
+    
+    .quick-guide li strong {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1 class="page-title">🎯 SCAR-EYE Adversarial Wargame</h1>
+    <p class="page-subtitle">AI vs AI Simulation • Red Team vs Blue Team • Educational Demo</p>
+  </header>
+  
+  <div class="disclaimer">
+    <strong>⚠️ EDUCATIONAL SIMULATION ONLY</strong><br>
+    This module is for demonstration and educational purposes only. 
+    No real data, APIs, or surveillance systems are used. All data is synthetically generated.
+  </div>
+  
+  <div class="quick-guide">
+    <h3>🚀 Quick Start Guide</h3>
+    <ol>
+      <li>Click <strong>▶ Start</strong> to begin the simulation</li>
+      <li>Watch <strong>Red-AI</strong> (attacker) try to hide virtual threats</li>
+      <li>See <strong>Blue-AI</strong> (SCAR-EYE) predict and detect locations</li>
+      <li>Use <strong>⏭ Step</strong> to advance one round at a time</li>
+      <li>Adjust <strong>Speed</strong> slider to control simulation pace</li>
+      <li>Toggle <strong>Camera Ranges</strong> and <strong>Hiding Spots</strong> for more detail</li>
+    </ol>
+  </div>
+  
+  <div id="wargame-dashboard">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Initializing Wargame Simulation...</p>
+    </div>
+  </div>
+  
+  <section class="info-section">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon">🗺️</div>
+        <div class="info-card-title">Digital Twin Map</div>
+        <div class="info-card-text">
+          Simulated neighborhood with buildings, roads, cameras, and hiding spots.
+          Features adaptive illumination and spectral layer analysis.
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-icon">🔴</div>
+        <div class="info-card-title">Red-AI (Attacker)</div>
+        <div class="info-card-text">
+          Adversarial agent that learns to exploit blind spots, use spectral camouflage,
+          and strategically hide virtual threats in the environment.
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-icon">🔵</div>
+        <div class="info-card-title">Blue-AI (SCAR-EYE)</div>
+        <div class="info-card-text">
+          Defensive system using spectral analysis, pattern prediction, 
+          and adaptive lighting to detect and locate hidden threats.
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-icon">📊</div>
+        <div class="info-card-title">Real-time Analytics</div>
+        <div class="info-card-text">
+          Track detection rates, confidence trends, and strategy performance
+          as both AI agents learn and adapt over 200 rounds.
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <p>SCAR-EYE Adversarial Wargame Module v1.0.0</p>
+    <p>Educational Simulation • No Real Operations • Hackathon Demo</p>
+  </footer>
+  
+  <!-- Load the compiled JavaScript -->
+  <script src="dist/wargame.bundle.js"></script>
+  
+  <!-- Initialize the simulation -->
+  <script>
+    // Wait for DOM and scripts to load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Small delay for visual effect
+      setTimeout(function() {
+        try {
+          // Initialize the wargame
+          const { engine, dashboard } = WargameModule.initWargame('wargame-dashboard', {
+            totalRounds: 200,
+            mapWidth: 800,
+            mapHeight: 600,
+            adaptiveLightingEnabled: true,
+            spectralAnalysisEnabled: true
+          });
+          
+          // Store globally for console debugging
+          window.wargameEngine = engine;
+          window.wargameDashboard = dashboard;
+          
+          console.log('🎯 SCAR-EYE Wargame initialized successfully!');
+          console.log('Access engine via: window.wargameEngine');
+          console.log('Access dashboard via: window.wargameDashboard');
+          
+        } catch (error) {
+          console.error('Failed to initialize wargame:', error);
+          document.getElementById('wargame-dashboard').innerHTML = `
+            <div class="loading">
+              <p style="color: #ff4757;">❌ Failed to initialize simulation</p>
+              <p style="color: #888; font-size: 12px; margin-top: 10px;">
+                Please check console for errors.<br>
+                Make sure to build the project first: <code>npm run build</code>
+              </p>
+            </div>
+          `;
+        }
+      }, 500);
+    });
+  </script>
+  
+  <!-- Fallback: Inline initialization for development -->
+  <script type="module">
+    // This script runs if ES modules are supported and dist isn't built yet
+    import('./dist/wargame.esm.js').then(module => {
+      if (!window.wargameEngine) {
+        const { initWargame } = module;
+        const { engine, dashboard } = initWargame('wargame-dashboard');
+        window.wargameEngine = engine;
+        window.wargameDashboard = dashboard;
+      }
+    }).catch(() => {
+      // dist not built yet, show instructions
+      if (!window.wargameEngine) {
+        console.log('Waiting for bundle or use inline version...');
+      }
+    });
+  </script>
+</body>
+</html>

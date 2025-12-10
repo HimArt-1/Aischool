@@ -1,0 +1,45 @@
+{
+  "name": "adversarial-wargame-module",
+  "version": "1.0.0",
+  "description": "SCAR-EYE Adversarial AI Wargaming Simulation - Educational Demo",
+  "main": "dist/wargame.bundle.js",
+  "module": "dist/wargame.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && node scripts/bundle.js",
+    "build:standalone": "node scripts/bundle-standalone.js",
+    "dev": "tsc --watch",
+    "start": "npx http-server . -p 8080 -o",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "scar-eye",
+    "wargame",
+    "simulation",
+    "ai",
+    "adversarial",
+    "hackathon",
+    "educational"
+  ],
+  "author": "SCAR-EYE Team",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "src",
+    "index.html",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scar-eye/adversarial-wargame"
+  },
+  "bugs": {
+    "url": "https://github.com/scar-eye/adversarial-wargame/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
