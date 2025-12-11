@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/spatialAudio.css">
     
     <style>
-        /* Additional standalone page styles */
+        /* Additional standalone page styles - Saudi Green Theme */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +24,7 @@
         
         body {
             font-family: 'Cairo', sans-serif;
-            background: #0a0e17;
+            background: #0D0D0D;
             color: #fff;
             min-height: 100vh;
         }
@@ -36,7 +36,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0a0e17;
+            background: #0D0D0D;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,10 +50,16 @@
             visibility: hidden;
         }
         
-        .loading-icon {
-            font-size: 4rem;
-            color: #f97316;
+        .loading-logo {
+            width: 120px;
+            height: 120px;
             margin-bottom: 1.5rem;
+        }
+        
+        .loading-logo img {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0, 108, 53, 0.5));
             animation: audioPulse 1.5s ease-in-out infinite;
         }
         
@@ -65,7 +71,7 @@
         .loading-text {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+            background: linear-gradient(135deg, #006C35 0%, #004D26 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -75,14 +81,14 @@
         .loading-subtext {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
-            color: #64748b;
+            color: #B9C3CA;
             margin-bottom: 1.5rem;
         }
         
         .loading-progress {
             width: 200px;
             height: 4px;
-            background: #1a2234;
+            background: #1A1A1A;
             border-radius: 2px;
             overflow: hidden;
         }
@@ -90,7 +96,7 @@
         .loading-progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #f97316, #ef4444);
+            background: linear-gradient(90deg, #006C35, #008542);
             border-radius: 2px;
             animation: loadProgress 2s ease-out forwards;
         }
@@ -106,8 +112,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 0.75rem 1.5rem;
-            background: #111827;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #141414;
+            border-bottom: 1px solid rgba(185, 195, 202, 0.15);
         }
         
         .sa-navbar-brand {
@@ -122,10 +128,10 @@
             height: 40px;
         }
         
-        .sa-navbar-logo svg {
+        .sa-navbar-logo img {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.5));
+            filter: drop-shadow(0 0 5px rgba(0, 108, 53, 0.5));
         }
         
         .sa-navbar-title {
@@ -136,13 +142,13 @@
         .sa-navbar-title span:first-child {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #f97316;
+            color: #006C35;
         }
         
         .sa-navbar-title span:last-child {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.7rem;
-            color: #64748b;
+            color: #B9C3CA;
             letter-spacing: 1px;
         }
         
@@ -158,24 +164,24 @@
             gap: 0.5rem;
             padding: 0.5rem 1rem;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(185, 195, 202, 0.15);
             border-radius: 8px;
-            color: #94a3b8;
+            color: #B9C3CA;
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         
         .sa-navbar-link:hover {
-            background: rgba(249, 115, 22, 0.1);
-            border-color: #f97316;
+            background: rgba(0, 108, 53, 0.1);
+            border-color: #006C35;
             color: #fff;
         }
         
         .sa-navbar-link.active {
-            background: rgba(249, 115, 22, 0.1);
-            border-color: #f97316;
-            color: #f97316;
+            background: rgba(0, 108, 53, 0.1);
+            border-color: #006C35;
+            color: #006C35;
         }
         
         .sa-navbar-status {
@@ -183,15 +189,15 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.85rem;
-            color: #64748b;
+            color: #B9C3CA;
         }
         
         .sa-status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #f97316;
-            box-shadow: 0 0 10px #f97316;
+            background: #006C35;
+            box-shadow: 0 0 10px #006C35;
             animation: statusPulse 2s ease-in-out infinite;
         }
         
@@ -218,9 +224,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 1.5rem;
-            background: #111827;
+            background: #141414;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(185, 195, 202, 0.15);
         }
         
         .sa-dashboard-title h1 {
@@ -231,14 +237,14 @@
         }
         
         .sa-dashboard-title h1 i {
-            color: #f97316;
+            color: #006C35;
             margin-left: 0.5rem;
         }
         
         .sa-dashboard-subtitle {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
-            color: #64748b;
+            color: #B9C3CA;
             margin: 0.25rem 0 0 0;
         }
         
@@ -261,9 +267,9 @@
         }
         
         .sa-panel {
-            background: #111827;
+            background: #141414;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(185, 195, 202, 0.15);
             overflow: hidden;
         }
         
@@ -272,8 +278,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 1rem;
-            background: #1a2234;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1A1A1A;
+            border-bottom: 1px solid rgba(185, 195, 202, 0.15);
         }
         
         .sa-panel-header h3 {
@@ -284,7 +290,7 @@
         }
         
         .sa-panel-header h3 i {
-            color: #f97316;
+            color: #006C35;
             margin-left: 0.5rem;
         }
         
@@ -297,7 +303,7 @@
             position: relative;
             width: 100%;
             height: 450px;
-            background: #0a0e17;
+            background: #0D0D0D;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -318,24 +324,24 @@
             align-items: center;
             justify-content: space-between;
             padding: 0.5rem 0.75rem;
-            background: #1a2234;
+            background: #1A1A1A;
             border-radius: 6px;
             margin-bottom: 0.5rem;
-            border-right: 3px solid #00f0ff;
+            border-right: 3px solid #006C35;
         }
         
         .sa-mic-entry.active {
-            border-right-color: #10b981;
+            border-right-color: #006C35;
         }
         
         .sa-mic-entry.detecting {
-            border-right-color: #f97316;
+            border-right-color: #008542;
             animation: micDetect 0.5s ease-in-out;
         }
         
         @keyframes micDetect {
-            0%, 100% { background: #1a2234; }
-            50% { background: rgba(249, 115, 22, 0.2); }
+            0%, 100% { background: #1A1A1A; }
+            50% { background: rgba(0, 108, 53, 0.2); }
         }
         
         .sa-mic-entry-info {
@@ -347,14 +353,14 @@
         .sa-mic-entry-level {
             width: 50px;
             height: 4px;
-            background: #1e2a3a;
+            background: #0D0D0D;
             border-radius: 2px;
             overflow: hidden;
         }
         
         .sa-mic-entry-level-bar {
             height: 100%;
-            background: linear-gradient(90deg, #00f0ff, #0080ff);
+            background: linear-gradient(90deg, #006C35, #008542);
             transition: width 0.1s linear;
         }
         
@@ -369,10 +375,10 @@
             align-items: center;
             gap: 0.75rem;
             padding: 0.6rem 0.75rem;
-            background: #1a2234;
+            background: #1A1A1A;
             border-radius: 6px;
             margin-bottom: 0.5rem;
-            border-right: 3px solid #64748b;
+            border-right: 3px solid #7A8590;
             animation: eventSlide 0.3s ease;
         }
         
@@ -381,9 +387,9 @@
             to { opacity: 1; transform: translateX(0); }
         }
         
-        .sa-event-entry.suspicious { border-right-color: #f97316; }
-        .sa-event-entry.confirmed { border-right-color: #10b981; }
-        .sa-event-entry.pending { border-right-color: #f59e0b; }
+        .sa-event-entry.suspicious { border-right-color: #FF1E1E; }
+        .sa-event-entry.confirmed { border-right-color: #006C35; }
+        .sa-event-entry.pending { border-right-color: #B9C3CA; }
         
         .sa-event-entry-icon {
             font-size: 1.2rem;
@@ -400,7 +406,7 @@
         
         .sa-event-entry-meta {
             font-size: 0.7rem;
-            color: #64748b;
+            color: #7A8590;
         }
         
         .sa-event-entry-confidence {
@@ -409,9 +415,9 @@
             font-weight: 700;
         }
         
-        .sa-event-entry-confidence.high { color: #10b981; }
-        .sa-event-entry-confidence.medium { color: #f59e0b; }
-        .sa-event-entry-confidence.low { color: #ef4444; }
+        .sa-event-entry-confidence.high { color: #006C35; }
+        .sa-event-entry-confidence.medium { color: #B9C3CA; }
+        .sa-event-entry-confidence.low { color: #FF1E1E; }
         
         /* Stats Grid */
         .sa-stats-wrapper {
@@ -422,7 +428,7 @@
         
         .sa-stat-box {
             padding: 0.75rem;
-            background: #1a2234;
+            background: #1A1A1A;
             border-radius: 8px;
             text-align: center;
         }
@@ -431,12 +437,12 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #f97316;
+            color: #006C35;
         }
         
         .sa-stat-box-label {
             font-size: 0.75rem;
-            color: #64748b;
+            color: #B9C3CA;
             margin-top: 0.25rem;
         }
         
@@ -453,19 +459,19 @@
             align-items: center;
             gap: 0.25rem;
             padding: 0.75rem;
-            background: #1a2234;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1A1A1A;
+            border: 1px solid rgba(185, 195, 202, 0.15);
             border-radius: 8px;
-            color: #94a3b8;
+            color: #B9C3CA;
             font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .sa-trigger-button:hover {
-            background: rgba(249, 115, 22, 0.1);
-            border-color: #f97316;
-            color: #f97316;
+            background: rgba(0, 108, 53, 0.1);
+            border-color: #006C35;
+            color: #006C35;
         }
         
         .sa-trigger-button .icon {
@@ -480,19 +486,19 @@
         
         .sa-mode-btn {
             padding: 0.4rem 0.8rem;
-            background: #1a2234;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1A1A1A;
+            border: 1px solid rgba(185, 195, 202, 0.15);
             border-radius: 6px;
-            color: #64748b;
+            color: #7A8590;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .sa-mode-btn.active {
-            background: rgba(249, 115, 22, 0.2);
-            border-color: #f97316;
-            color: #f97316;
+            background: rgba(0, 108, 53, 0.2);
+            border-color: #006C35;
+            color: #006C35;
         }
         
         /* Footer */
@@ -501,20 +507,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 1.5rem;
-            background: #111827;
+            background: #141414;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(185, 195, 202, 0.15);
         }
         
         .sa-dashboard-footer-info {
             font-size: 0.8rem;
-            color: #64748b;
+            color: #B9C3CA;
         }
         
         .sa-dashboard-footer-tagline {
             font-size: 0.9rem;
             font-style: italic;
-            color: #f97316;
+            color: #006C35;
         }
         
         /* Scrollbar */
@@ -524,11 +530,11 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: #1a2234;
+            background: #1A1A1A;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #f97316;
+            background: #006C35;
             border-radius: 3px;
         }
         
@@ -565,12 +571,31 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        
+        /* Primary button style */
+        .sa-btn-primary {
+            background: linear-gradient(135deg, #006C35 0%, #004D26 100%);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sa-btn-primary:hover {
+            box-shadow: 0 0 20px rgba(0, 108, 53, 0.4);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="sa-standalone">
     <!-- Loading Screen -->
     <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-icon">🔊</div>
+        <div class="loading-logo">
+            <img src="assets/logo.svg" alt="عين الشاهين">
+        </div>
         <h1 class="loading-text">الارتباط الصوتي المكاني</h1>
         <p class="loading-subtext">Spatial Audio Correlation Module</p>
         <div class="loading-progress">
@@ -582,10 +607,7 @@
     <nav class="sa-navbar">
         <a href="index.html" class="sa-navbar-brand">
             <div class="sa-navbar-logo">
-                <svg viewBox="0 0 50 50">
-                    <path fill="#f97316" d="M25,5 L30,15 L45,20 L35,25 L40,45 L25,35 L10,45 L15,25 L5,20 L20,15 Z"/>
-                    <circle cx="25" cy="21" r="4" fill="#fff"/>
-                </svg>
+                <img src="assets/logo.svg" alt="عين الشاهين">
             </div>
             <div class="sa-navbar-title">
                 <span>عين الشاهين</span>

@@ -1,40 +1,51 @@
 /* ====================================
    ShaheenEye - Main Styles
+   Color Palette:
+   - Deep Saudi Green: #006C35 (Primary)
+   - Jet Black: #0D0D0D (Background)
+   - Falcon Silver: #B9C3CA (Technical lines)
+   - Threat Alert Red: #FF1E1E (Warnings only)
    ==================================== */
 
 :root {
-    /* Colors */
-    --bg-primary: #0a0e17;
-    --bg-secondary: #111827;
-    --bg-tertiary: #1a2234;
-    --bg-card: #1e2a3a;
+    /* Primary Colors - Saudi Green Theme */
+    --bg-primary: #0D0D0D;
+    --bg-secondary: #141414;
+    --bg-tertiary: #1A1A1A;
+    --bg-card: #1F1F1F;
     
-    --accent-cyan: #00f0ff;
-    --accent-blue: #0080ff;
-    --accent-purple: #8b5cf6;
-    --accent-green: #10b981;
-    --accent-yellow: #f59e0b;
-    --accent-red: #ef4444;
-    --accent-orange: #f97316;
+    /* Accent Colors */
+    --accent-primary: #006C35;
+    --accent-secondary: #008542;
+    --accent-light: #00A854;
+    --accent-cyan: #006C35;
+    --accent-blue: #006C35;
+    --accent-purple: #004D26;
+    --accent-green: #006C35;
+    --accent-yellow: #B9C3CA;
+    --accent-red: #FF1E1E;
+    --accent-orange: #006C35;
     
-    --text-primary: #ffffff;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    /* Text Colors */
+    --text-primary: #FFFFFF;
+    --text-secondary: #B9C3CA;
+    --text-muted: #7A8590;
     
-    --border-color: rgba(255, 255, 255, 0.1);
-    --border-glow: rgba(0, 240, 255, 0.3);
+    /* Border Colors */
+    --border-color: rgba(185, 195, 202, 0.15);
+    --border-glow: rgba(0, 108, 53, 0.4);
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #00f0ff 0%, #0080ff 100%);
-    --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    --gradient-card: linear-gradient(145deg, #1e2a3a 0%, #151f2e 100%);
+    --gradient-primary: linear-gradient(135deg, #006C35 0%, #004D26 100%);
+    --gradient-danger: linear-gradient(135deg, #FF1E1E 0%, #CC1818 100%);
+    --gradient-success: linear-gradient(135deg, #006C35 0%, #008542 100%);
+    --gradient-card: linear-gradient(145deg, #1F1F1F 0%, #141414 100%);
     
     /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.3);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 20px rgba(0, 108, 53, 0.4);
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -91,17 +102,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent-cyan);
+    background: var(--accent-primary);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-blue);
+    background: var(--accent-secondary);
 }
 
 /* Selection */
 ::selection {
-    background: var(--accent-cyan);
+    background: var(--accent-primary);
     color: var(--bg-primary);
 }
 
@@ -135,10 +146,16 @@ body {
     margin: 0 auto var(--spacing-lg);
 }
 
+.shaheen-logo img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 20px rgba(0, 108, 53, 0.5));
+}
+
 .falcon-icon {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+    filter: drop-shadow(0 0 20px rgba(0, 108, 53, 0.5));
 }
 
 .falcon-path {
@@ -247,7 +264,12 @@ body {
 .logo-icon {
     width: 45px;
     height: 45px;
-    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
+    filter: drop-shadow(0 0 10px rgba(0, 108, 53, 0.5));
+}
+
+.logo-icon img {
+    width: 100%;
+    height: 100%;
 }
 
 .logo-text {
@@ -258,7 +280,7 @@ body {
 .logo-ar {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--accent-cyan);
+    color: var(--accent-primary);
 }
 
 .logo-en {
@@ -301,14 +323,14 @@ body {
 }
 
 .status-indicator.online {
-    background: var(--accent-green);
-    box-shadow: 0 0 10px var(--accent-green);
+    background: var(--accent-primary);
+    box-shadow: 0 0 10px var(--accent-primary);
     animation: statusPulse 2s ease-in-out infinite;
 }
 
 @keyframes statusPulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--accent-green); }
-    50% { opacity: 0.7; box-shadow: 0 0 20px var(--accent-green); }
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--accent-primary); }
+    50% { opacity: 0.7; box-shadow: 0 0 20px var(--accent-primary); }
 }
 
 .status-text {
@@ -319,7 +341,7 @@ body {
 .datetime {
     font-family: var(--font-en);
     font-size: 0.875rem;
-    color: var(--accent-cyan);
+    color: var(--accent-primary);
     direction: ltr;
 }
 
@@ -331,7 +353,7 @@ body {
     background: var(--gradient-primary);
     border: none;
     border-radius: var(--radius-md);
-    color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-ar);
     font-size: 0.875rem;
     font-weight: 600;
@@ -378,9 +400,9 @@ body {
 }
 
 .nav-item.active {
-    color: var(--accent-cyan);
-    border-color: var(--accent-cyan);
-    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    background: rgba(0, 108, 53, 0.1);
 }
 
 .nav-item i {
@@ -439,14 +461,14 @@ body {
 }
 
 .panel-header h2 i {
-    color: var(--accent-cyan);
+    color: var(--accent-primary);
     margin-left: var(--spacing-sm);
 }
 
 .panel-subtitle {
     font-family: var(--font-en);
     font-size: 1rem;
-    color: var(--accent-cyan);
+    color: var(--accent-primary);
     font-style: italic;
     opacity: 0.8;
 }
@@ -466,6 +488,17 @@ body {
 
 .text-left {
     text-align: left;
+}
+
+/* Alert/Warning Colors - Only for threats */
+.alert-critical {
+    color: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+.alert-warning {
+    color: var(--accent-red);
+    border-color: var(--accent-red);
 }
 
 /* Responsive */

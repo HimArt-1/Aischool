@@ -243,7 +243,7 @@ class HyperspectralAnalyzer {
         const sig = this.spectralSignatures[signature];
         if (!sig) return;
         
-        ctx.strokeStyle = '#00f0ff';
+        ctx.strokeStyle = '#006C35';
         ctx.lineWidth = 2;
         ctx.beginPath();
         
@@ -261,7 +261,7 @@ class HyperspectralAnalyzer {
         ctx.stroke();
         
         // Draw points
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#006C35';
         sig.values.forEach((val, i) => {
             const x = (width / (sig.values.length - 1)) * i;
             const y = height - (val * height);
@@ -358,7 +358,7 @@ class HyperspectralAnalyzer {
             ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
             
             // Border
-            ctx.strokeStyle = obj.highlighted ? '#00f0ff' : 'rgba(255, 255, 255, 0.2)';
+            ctx.strokeStyle = obj.highlighted ? '#006C35' : 'rgba(255, 255, 255, 0.2)';
             ctx.lineWidth = obj.highlighted ? 3 : 1;
             ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
             
@@ -394,7 +394,7 @@ class HyperspectralAnalyzer {
             ctx.fillRect(0, scanY - 20, this.width, 40);
             
             // Scan line
-            ctx.strokeStyle = '#00f0ff';
+            ctx.strokeStyle = '#006C35';
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.moveTo(0, scanY);
@@ -413,7 +413,7 @@ class HyperspectralAnalyzer {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
         ctx.fillRect(10, 10, 180, 80);
         
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#006C35';
         ctx.font = '12px Cairo';
         ctx.textAlign = 'right';
         ctx.fillText(`وضع العرض: ${this.currentView.toUpperCase()}`, 180, 30);
@@ -421,7 +421,7 @@ class HyperspectralAnalyzer {
         ctx.fillText(`التقدم: ${this.scanProgress.toFixed(0)}%`, 180, 70);
         
         // Corner brackets
-        ctx.strokeStyle = '#00f0ff';
+        ctx.strokeStyle = '#006C35';
         ctx.lineWidth = 2;
         
         // Top left

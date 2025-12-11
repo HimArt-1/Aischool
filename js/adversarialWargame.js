@@ -416,7 +416,7 @@ class DigitalTwinMap {
             ctx.fill();
             
             // Camera marker
-            ctx.fillStyle = '#00f0ff';
+            ctx.fillStyle = '#006C35';
             ctx.beginPath();
             ctx.arc(cam.x, cam.y, 6, 0, Math.PI * 2);
             ctx.fill();
@@ -1672,12 +1672,12 @@ class WargameDashboard {
         this.twin.highlightLocation(
             round.hideLocation.x,
             round.hideLocation.y,
-            round.detected ? '#00f0ff' : '#ef4444',
+            round.detected ? '#006C35' : '#ef4444',
             round.detected ? 'مكتشف!' : 'مخفي'
         );
         
         // Draw prediction
-        ctx.strokeStyle = '#0080ff';
+        ctx.strokeStyle = '#008542';
         ctx.lineWidth = 2;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
@@ -1686,7 +1686,7 @@ class WargameDashboard {
         ctx.setLineDash([]);
         
         // Draw prediction marker
-        ctx.fillStyle = '#0080ff';
+        ctx.fillStyle = '#008542';
         ctx.font = '12px Cairo';
         ctx.textAlign = 'center';
         ctx.fillText('⊕', round.predictedLocation.x, round.predictedLocation.y + 4);
@@ -1781,7 +1781,7 @@ class WargameDashboard {
                 <span class="wg-log-tactic">${round.tactic.name}</span>
                 <span class="wg-log-result">${round.detected ? 'تم الكشف' : 'نجح الإخفاء'}</span>
             </div>
-            <div class="wg-log-confidence" style="color: ${round.detected ? '#00f0ff' : '#ef4444'}">
+            <div class="wg-log-confidence" style="color: ${round.detected ? '#006C35' : '#ef4444'}">
                 ${(round.confidence * 100).toFixed(0)}%
             </div>
         `;
@@ -1806,7 +1806,7 @@ class WargameDashboard {
         }
         if (this.elements.confidence) {
             this.elements.confidence.textContent = `${(round.confidence * 100).toFixed(1)}%`;
-            this.elements.confidence.style.color = round.detected ? '#00f0ff' : '#ef4444';
+            this.elements.confidence.style.color = round.detected ? '#006C35' : '#ef4444';
         }
         if (this.elements.result) {
             this.elements.result.textContent = round.detected ? 'تم الكشف ✓' : 'نجح الإخفاء ✗';
@@ -1859,7 +1859,7 @@ class WargameDashboard {
         const graphHeight = height - padding * 2;
         
         // Draw Blue detection rate
-        ctx.strokeStyle = '#0080ff';
+        ctx.strokeStyle = '#008542';
         ctx.lineWidth = 2;
         ctx.beginPath();
         for (let i = 0; i < dataPoints; i++) {
@@ -1898,7 +1898,7 @@ class WargameDashboard {
         
         // Legend
         ctx.font = '11px Cairo';
-        ctx.fillStyle = '#0080ff';
+        ctx.fillStyle = '#008542';
         ctx.fillText('● Blue-AI (الكشف)', width - 150, 20);
         ctx.fillStyle = '#ef4444';
         ctx.fillText('● Red-AI (النجاح)', width - 150, 35);

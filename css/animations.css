@@ -1,49 +1,58 @@
 /* ====================================
    ShaheenEye - Animations
+   Color Palette:
+   - Deep Saudi Green: #006C35 (Primary)
+   - Jet Black: #0D0D0D (Background)
+   - Falcon Silver: #B9C3CA (Technical lines)
+   - Threat Alert Red: #FF1E1E (Warnings only)
    ==================================== */
 
 /* Glow Effects */
+.glow-green {
+    box-shadow: 0 0 20px rgba(0, 108, 53, 0.4);
+}
+
 .glow-cyan {
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 108, 53, 0.4);
 }
 
 .glow-red {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 20px rgba(255, 30, 30, 0.4);
 }
 
-.glow-green {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+.glow-silver {
+    box-shadow: 0 0 20px rgba(185, 195, 202, 0.4);
 }
 
 .glow-yellow {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 20px rgba(185, 195, 202, 0.4);
 }
 
 /* Pulse Animations */
 @keyframes pulseCyan {
     0%, 100% {
-        box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+        box-shadow: 0 0 5px rgba(0, 108, 53, 0.3);
     }
     50% {
-        box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-    }
-}
-
-@keyframes pulseRed {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+        box-shadow: 0 0 20px rgba(0, 108, 53, 0.6);
     }
 }
 
 @keyframes pulseGreen {
     0%, 100% {
-        box-shadow: 0 0 5px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 0 5px rgba(0, 108, 53, 0.3);
     }
     50% {
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 20px rgba(0, 108, 53, 0.6);
+    }
+}
+
+@keyframes pulseRed {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 30, 30, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 30, 30, 0.6);
     }
 }
 
@@ -51,12 +60,12 @@
     animation: pulseCyan 2s ease-in-out infinite;
 }
 
-.pulse-red {
-    animation: pulseRed 2s ease-in-out infinite;
-}
-
 .pulse-green {
     animation: pulseGreen 2s ease-in-out infinite;
+}
+
+.pulse-red {
+    animation: pulseRed 2s ease-in-out infinite;
 }
 
 /* Scan Line Animation */
@@ -76,7 +85,7 @@
     height: 2px;
     background: linear-gradient(90deg, 
         transparent 0%, 
-        var(--accent-cyan) 50%, 
+        var(--accent-primary) 50%, 
         transparent 100%);
     animation: scanLine 3s linear infinite;
     opacity: 0.5;
@@ -112,8 +121,8 @@
         0deg,
         transparent 0px,
         transparent 2px,
-        rgba(0, 240, 255, 0.1) 2px,
-        rgba(0, 240, 255, 0.1) 4px
+        rgba(0, 108, 53, 0.1) 2px,
+        rgba(0, 108, 53, 0.1) 4px
     );
     background-size: 100% 200%;
     animation: dataStream 2s linear infinite;
@@ -132,7 +141,7 @@
 .typing-effect {
     overflow: hidden;
     white-space: nowrap;
-    border-left: 2px solid var(--accent-cyan);
+    border-left: 2px solid var(--accent-primary);
     animation: 
         typing 3s steps(30, end),
         blink 0.75s step-end infinite;
@@ -268,10 +277,10 @@
 /* Border Animation */
 @keyframes borderGlow {
     0%, 100% {
-        border-color: rgba(0, 240, 255, 0.3);
+        border-color: rgba(0, 108, 53, 0.3);
     }
     50% {
-        border-color: rgba(0, 240, 255, 0.8);
+        border-color: rgba(0, 108, 53, 0.8);
     }
 }
 
@@ -316,7 +325,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 240, 255, 0.4) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 108, 53, 0.4) 0%, transparent 70%);
     animation: spotlight 2s ease-out infinite;
 }
 
@@ -451,11 +460,11 @@
 @keyframes attention {
     0%, 100% {
         transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+        box-shadow: 0 0 0 0 rgba(255, 30, 30, 0.7);
     }
     50% {
         transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+        box-shadow: 0 0 0 10px rgba(255, 30, 30, 0);
     }
 }
 
@@ -481,10 +490,10 @@
 /* Text Glow */
 @keyframes textGlow {
     0%, 100% {
-        text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+        text-shadow: 0 0 5px rgba(0, 108, 53, 0.5);
     }
     50% {
-        text-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 40px rgba(0, 240, 255, 0.4);
+        text-shadow: 0 0 20px rgba(0, 108, 53, 0.8), 0 0 40px rgba(0, 108, 53, 0.4);
     }
 }
 

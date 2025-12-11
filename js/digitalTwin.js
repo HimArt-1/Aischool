@@ -385,7 +385,7 @@ class DigitalTwin {
             ctx.fill();
             
             // Camera icon
-            ctx.fillStyle = cam.detecting ? '#ef4444' : '#00f0ff';
+            ctx.fillStyle = cam.detecting ? '#ef4444' : '#006C35';
             ctx.beginPath();
             ctx.arc(cam.x, cam.y, 8, 0, Math.PI * 2);
             ctx.fill();

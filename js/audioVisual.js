@@ -18,7 +18,7 @@ class AudioVisualCorrelator {
         this.soundCategories = {
             'drilling': { name: 'حفر', icon: '🔨', count: 0, color: '#ef4444' },
             'dragging': { name: 'سحب', icon: '📦', count: 0, color: '#f59e0b' },
-            'footsteps': { name: 'خطوات', icon: '👣', count: 0, color: '#00f0ff' },
+            'footsteps': { name: 'خطوات', icon: '👣', count: 0, color: '#006C35' },
             'vehicle': { name: 'مركبة', icon: '🚗', count: 0, color: '#8b5cf6' },
             'voices': { name: 'أصوات', icon: '🗣️', count: 0, color: '#10b981' },
             'glass': { name: 'زجاج', icon: '💥', count: 0, color: '#ec4899' },
@@ -395,14 +395,14 @@ class AudioVisualCorrelator {
             }
             
             // Microphone dot
-            ctx.fillStyle = mic.isDetecting ? '#00f0ff' : '#10b981';
+            ctx.fillStyle = mic.isDetecting ? '#006C35' : '#10b981';
             ctx.beginPath();
             ctx.arc(mic.x, mic.y, 8, 0, Math.PI * 2);
             ctx.fill();
             
             // Level indicator
             if (mic.level > 0.1) {
-                ctx.strokeStyle = '#00f0ff';
+                ctx.strokeStyle = '#006C35';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.arc(mic.x, mic.y, 12, 0, Math.PI * 2 * mic.level);
@@ -451,7 +451,7 @@ class AudioVisualCorrelator {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
         ctx.fillRect(10, 10, 160, 80);
         
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#006C35';
         ctx.font = '12px Cairo';
         ctx.textAlign = 'right';
         ctx.fillText('التحليل الصوتي', 160, 28);
@@ -510,7 +510,7 @@ class AudioVisualCorrelator {
             ctx.fill();
             
             // Line
-            ctx.strokeStyle = '#00f0ff';
+            ctx.strokeStyle = '#006C35';
             ctx.lineWidth = 2;
             ctx.beginPath();
             

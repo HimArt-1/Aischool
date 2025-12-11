@@ -275,8 +275,8 @@ class DemoController {
                         <svg viewBox="0 0 200 200" class="falcon-icon-large">
                             <defs>
                                 <linearGradient id="falconGradLarge" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                                    <stop offset="0%" style="stop-color:#006C35;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#008542;stop-opacity:1" />
                                 </linearGradient>
                             </defs>
                             <path fill="url(#falconGradLarge)" d="M100,20 L120,60 L180,80 L140,100 L160,180 L100,140 L40,180 L60,100 L20,80 L80,60 Z"/>
@@ -412,7 +412,7 @@ class DemoController {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
                 // Draw waveform
-                ctx.strokeStyle = '#00f0ff';
+                ctx.strokeStyle = '#006C35';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 
@@ -709,8 +709,8 @@ demoStyles.textContent = `
     
     .ai-side.blue .ai-icon {
         background: rgba(0, 128, 255, 0.2);
-        border: 2px solid #0080ff;
-        color: #0080ff;
+        border: 2px solid #008542;
+        color: #008542;
     }
     
     .ai-name {
@@ -783,7 +783,7 @@ demoStyles.textContent = `
     }
     
     .stat-bar.blue .stat-fill {
-        background: #0080ff;
+        background: #008542;
     }
     
     .stat-bar.red .stat-fill {

@@ -367,7 +367,7 @@ class IlluminanceController {
             
             // Adjusting indicator
             if (pole.isAdjusting) {
-                ctx.strokeStyle = '#00f0ff';
+                ctx.strokeStyle = '#006C35';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.arc(pole.x, pole.y, 15, 0, Math.PI * 2);
@@ -412,7 +412,7 @@ class IlluminanceController {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
         ctx.fillRect(10, 10, 200, 100);
         
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#006C35';
         ctx.font = '14px Cairo';
         ctx.textAlign = 'right';
         ctx.fillText('التحكم في الإضاءة', 200, 30);

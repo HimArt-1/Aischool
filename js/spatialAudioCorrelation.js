@@ -1089,7 +1089,7 @@ class AudioHeatmapOverlay {
         
         this.detailsPanel.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <strong style="color: #00f0ff;">🔊 ${event.eventTypeName}</strong>
+                <strong style="color: #006C35;">🔊 ${event.eventTypeName}</strong>
                 <span style="
                     background: ${statusColors[event.status] || statusColors.uncertain};
                     padding: 2px 8px;
@@ -1126,7 +1126,7 @@ class AudioHeatmapOverlay {
                     ${event.recommendedCameras.map(cam => `
                         <span style="
                             background: rgba(0, 128, 255, 0.2);
-                            border: 1px solid #0080ff;
+                            border: 1px solid #008542;
                             padding: 2px 6px;
                             border-radius: 4px;
                             font-size: 10px;
@@ -1295,7 +1295,7 @@ class AudioHeatmapOverlay {
             
             // Icon
             if (this.showLabels) {
-                ctx.fillStyle = isActive ? '#00f0ff' : '#666';
+                ctx.fillStyle = isActive ? '#006C35' : '#666';
                 ctx.font = '10px Arial';
                 ctx.textAlign = 'center';
                 ctx.fillText('🎤', mic.position.x, mic.position.y + 4);

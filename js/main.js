@@ -79,7 +79,7 @@ function initializeApp() {
     startStatsUpdates();
     
     // Log initialization
-    console.log('%c🦅 ShaheenEye System Initialized', 'color: #00f0ff; font-size: 20px; font-weight: bold;');
+    console.log('%c🦅 ShaheenEye System Initialized', 'color: #006C35; font-size: 20px; font-weight: bold;');
 }
 
 function initializeModules() {

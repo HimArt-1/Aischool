@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/wargame.css">
     
     <style>
-        /* Additional standalone page styles */
+        /* Additional standalone page styles - Saudi Green Theme */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +24,7 @@
         
         body {
             font-family: 'Cairo', sans-serif;
-            background: #0a0e17;
+            background: #0D0D0D;
             color: #fff;
             min-height: 100vh;
         }
@@ -36,7 +36,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0a0e17;
+            background: #0D0D0D;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -56,13 +56,10 @@
             margin-bottom: 2rem;
         }
         
-        .loading-logo svg {
+        .loading-logo img {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
-        }
-        
-        .loading-logo svg path {
+            filter: drop-shadow(0 0 20px rgba(0, 108, 53, 0.5));
             animation: logoPulse 2s ease-in-out infinite;
         }
         
@@ -74,7 +71,7 @@
         .loading-text {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #00f0ff 0%, #0080ff 100%);
+            background: linear-gradient(135deg, #006C35 0%, #004D26 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -84,14 +81,14 @@
         .loading-subtext {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
-            color: #64748b;
+            color: #B9C3CA;
             margin-bottom: 1.5rem;
         }
         
         .loading-progress {
             width: 200px;
             height: 4px;
-            background: #1a2234;
+            background: #1A1A1A;
             border-radius: 2px;
             overflow: hidden;
         }
@@ -99,7 +96,7 @@
         .loading-progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #00f0ff, #0080ff);
+            background: linear-gradient(90deg, #006C35, #008542);
             border-radius: 2px;
             animation: loadProgress 2s ease-out forwards;
         }
@@ -115,8 +112,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 0.75rem 1.5rem;
-            background: #111827;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #141414;
+            border-bottom: 1px solid rgba(185, 195, 202, 0.15);
         }
         
         .wg-navbar-brand {
@@ -131,10 +128,10 @@
             height: 40px;
         }
         
-        .wg-navbar-logo svg {
+        .wg-navbar-logo img {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));
+            filter: drop-shadow(0 0 5px rgba(0, 108, 53, 0.5));
         }
         
         .wg-navbar-title {
@@ -145,13 +142,13 @@
         .wg-navbar-title span:first-child {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #00f0ff;
+            color: #006C35;
         }
         
         .wg-navbar-title span:last-child {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.7rem;
-            color: #64748b;
+            color: #B9C3CA;
             letter-spacing: 1px;
         }
         
@@ -167,24 +164,24 @@
             gap: 0.5rem;
             padding: 0.5rem 1rem;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(185, 195, 202, 0.15);
             border-radius: 8px;
-            color: #94a3b8;
+            color: #B9C3CA;
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         
         .wg-navbar-link:hover {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: #00f0ff;
+            background: rgba(0, 108, 53, 0.1);
+            border-color: #006C35;
             color: #fff;
         }
         
         .wg-navbar-link.active {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: #00f0ff;
-            color: #00f0ff;
+            background: rgba(0, 108, 53, 0.1);
+            border-color: #006C35;
+            color: #006C35;
         }
         
         .wg-navbar-status {
@@ -192,15 +189,15 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.85rem;
-            color: #64748b;
+            color: #B9C3CA;
         }
         
         .wg-status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 10px #10b981;
+            background: #006C35;
+            box-shadow: 0 0 10px #006C35;
             animation: statusPulse 2s ease-in-out infinite;
         }
         
@@ -221,16 +218,16 @@
         }
         
         ::-webkit-scrollbar-track {
-            background: #111827;
+            background: #141414;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #00f0ff;
+            background: #006C35;
             border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #0080ff;
+            background: #008542;
         }
         
         /* Responsive */
@@ -252,17 +249,7 @@
     <!-- Loading Screen -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-logo">
-            <svg viewBox="0 0 200 200">
-                <defs>
-                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path fill="url(#logoGrad)" d="M100,20 L120,60 L180,80 L140,100 L160,180 L100,140 L40,180 L60,100 L20,80 L80,60 Z"/>
-                <circle cx="100" cy="85" r="15" fill="none" stroke="#00f0ff" stroke-width="2"/>
-                <circle cx="100" cy="85" r="8" fill="#00f0ff"/>
-            </svg>
+            <img src="assets/logo.svg" alt="عين الشاهين">
         </div>
         <h1 class="loading-text">عين الشاهين</h1>
         <p class="loading-subtext">Adversarial AI Wargaming Module</p>
@@ -275,10 +262,7 @@
     <nav class="wg-navbar">
         <a href="index.html" class="wg-navbar-brand">
             <div class="wg-navbar-logo">
-                <svg viewBox="0 0 50 50">
-                    <path fill="#00f0ff" d="M25,5 L30,15 L45,20 L35,25 L40,45 L25,35 L10,45 L15,25 L5,20 L20,15 Z"/>
-                    <circle cx="25" cy="21" r="4" fill="#fff"/>
-                </svg>
+                <img src="assets/logo.svg" alt="عين الشاهين">
             </div>
             <div class="wg-navbar-title">
                 <span>عين الشاهين</span>

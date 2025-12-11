@@ -1,36 +1,42 @@
 /* ====================================
    ShaheenEye - Adversarial Wargame Styles
-   Standalone Module Stylesheet
+   Color Palette:
+   - Deep Saudi Green: #006C35 (Primary)
+   - Jet Black: #0D0D0D (Background)
+   - Falcon Silver: #B9C3CA (Technical lines)
+   - Threat Alert Red: #FF1E1E (Warnings only)
    ==================================== */
 
 /* ========== CSS Variables (Local Scope) ========== */
 .wargame-dashboard {
-    --wg-bg-primary: #0a0e17;
-    --wg-bg-secondary: #111827;
-    --wg-bg-tertiary: #1a2234;
-    --wg-bg-card: #1e2a3a;
+    --wg-bg-primary: #0D0D0D;
+    --wg-bg-secondary: #141414;
+    --wg-bg-tertiary: #1A1A1A;
+    --wg-bg-card: #1F1F1F;
     
-    --wg-accent-cyan: #00f0ff;
-    --wg-accent-blue: #0080ff;
-    --wg-accent-red: #ef4444;
-    --wg-accent-green: #10b981;
-    --wg-accent-yellow: #f59e0b;
+    --wg-accent-primary: #006C35;
+    --wg-accent-secondary: #008542;
+    --wg-accent-cyan: #006C35;
+    --wg-accent-blue: #006C35;
+    --wg-accent-red: #FF1E1E;
+    --wg-accent-green: #006C35;
+    --wg-accent-yellow: #B9C3CA;
     
-    --wg-text-primary: #ffffff;
-    --wg-text-secondary: #94a3b8;
-    --wg-text-muted: #64748b;
+    --wg-text-primary: #FFFFFF;
+    --wg-text-secondary: #B9C3CA;
+    --wg-text-muted: #7A8590;
     
-    --wg-border-color: rgba(255, 255, 255, 0.1);
-    --wg-border-glow: rgba(0, 240, 255, 0.3);
+    --wg-border-color: rgba(185, 195, 202, 0.15);
+    --wg-border-glow: rgba(0, 108, 53, 0.4);
     
-    --wg-gradient-primary: linear-gradient(135deg, #00f0ff 0%, #0080ff 100%);
-    --wg-gradient-red: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    --wg-gradient-blue: linear-gradient(135deg, #0080ff 0%, #0066cc 100%);
+    --wg-gradient-primary: linear-gradient(135deg, #006C35 0%, #004D26 100%);
+    --wg-gradient-red: linear-gradient(135deg, #FF1E1E 0%, #CC1818 100%);
+    --wg-gradient-blue: linear-gradient(135deg, #006C35 0%, #004D26 100%);
     
-    --wg-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --wg-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --wg-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --wg-shadow-glow: 0 0 20px rgba(0, 240, 255, 0.3);
+    --wg-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --wg-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --wg-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --wg-shadow-glow: 0 0 20px rgba(0, 108, 53, 0.4);
     
     --wg-radius-sm: 4px;
     --wg-radius-md: 8px;
@@ -72,7 +78,7 @@
 }
 
 .wg-title h1 i {
-    color: var(--wg-accent-cyan);
+    color: var(--wg-accent-primary);
     margin-left: 0.5rem;
 }
 
@@ -112,7 +118,7 @@
 
 .wg-btn-primary {
     background: var(--wg-gradient-primary);
-    color: var(--wg-bg-primary);
+    color: var(--wg-text-primary);
 }
 
 .wg-btn-primary:hover:not(:disabled) {
@@ -128,7 +134,7 @@
 
 .wg-btn-secondary:hover:not(:disabled) {
     background: var(--wg-bg-card);
-    border-color: var(--wg-accent-cyan);
+    border-color: var(--wg-accent-primary);
 }
 
 .wg-btn-danger {
@@ -137,7 +143,7 @@
 }
 
 .wg-btn-danger:hover:not(:disabled) {
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 15px rgba(255, 30, 30, 0.4);
 }
 
 /* Speed Control */
@@ -168,7 +174,7 @@
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
-    background: var(--wg-accent-cyan);
+    background: var(--wg-accent-primary);
     border-radius: 50%;
     cursor: pointer;
 }
@@ -206,7 +212,7 @@
 }
 
 .wg-card-header h3 i {
-    color: var(--wg-accent-cyan);
+    color: var(--wg-accent-primary);
     margin-left: 0.5rem;
 }
 
@@ -237,9 +243,9 @@
 .wg-round-counter {
     font-family: var(--wg-font-en);
     font-size: 0.9rem;
-    color: var(--wg-accent-cyan);
+    color: var(--wg-accent-primary);
     padding: 0.3rem 0.75rem;
-    background: rgba(0, 240, 255, 0.1);
+    background: rgba(0, 108, 53, 0.15);
     border-radius: var(--wg-radius-sm);
 }
 
@@ -250,7 +256,7 @@
     display: flex;
     gap: 1rem;
     padding: 0.5rem 0.75rem;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: var(--wg-radius-sm);
     font-size: 0.75rem;
 }
@@ -269,9 +275,9 @@
 }
 
 .legend-item .dot.red { background: var(--wg-accent-red); }
-.legend-item .dot.blue { background: var(--wg-accent-blue); }
+.legend-item .dot.blue { background: var(--wg-accent-primary); }
 .legend-item .dot.yellow { background: var(--wg-accent-yellow); }
-.legend-item .dot.cyan { background: var(--wg-accent-cyan); }
+.legend-item .dot.cyan { background: var(--wg-accent-primary); }
 
 /* Stats Card */
 .wg-stats-card {
@@ -296,7 +302,7 @@
 }
 
 .wg-ai-panel.blue {
-    border-left: 3px solid var(--wg-accent-blue);
+    border-left: 3px solid var(--wg-accent-primary);
 }
 
 .wg-ai-header {
@@ -454,7 +460,7 @@
 }
 
 .wg-battle-log::-webkit-scrollbar-thumb {
-    background: var(--wg-accent-cyan);
+    background: var(--wg-accent-primary);
     border-radius: 3px;
 }
 
@@ -493,7 +499,7 @@
 }
 
 .wg-log-entry.detected {
-    border-right-color: var(--wg-accent-blue);
+    border-right-color: var(--wg-accent-primary);
 }
 
 .wg-log-entry.hidden {
@@ -507,7 +513,7 @@
 }
 
 .wg-log-entry.winner.blue {
-    border-right-color: var(--wg-accent-cyan);
+    border-right-color: var(--wg-accent-primary);
 }
 
 .wg-log-entry.winner.red {
@@ -627,7 +633,7 @@
 .wg-footer-brand {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--wg-accent-cyan);
+    color: var(--wg-accent-primary);
 }
 
 /* ========== Animations ========== */
@@ -644,10 +650,10 @@
 
 @keyframes wgGlow {
     0%, 100% {
-        box-shadow: 0 0 5px var(--wg-accent-cyan);
+        box-shadow: 0 0 5px var(--wg-accent-primary);
     }
     50% {
-        box-shadow: 0 0 20px var(--wg-accent-cyan);
+        box-shadow: 0 0 20px var(--wg-accent-primary);
     }
 }
 
@@ -711,7 +717,7 @@ body.wg-standalone {
     margin: 0;
     padding: 0;
     font-family: 'Cairo', sans-serif;
-    background: #0a0e17;
+    background: #0D0D0D;
 }
 
 body.wg-standalone .wargame-dashboard {

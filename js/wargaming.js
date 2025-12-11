@@ -402,7 +402,7 @@ class WargamingSimulator {
         
         // Draw detected threats
         this.detectedThreats.forEach(threat => {
-            ctx.strokeStyle = '#00f0ff';
+            ctx.strokeStyle = '#006C35';
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.arc(threat.x, threat.y, 20, 0, Math.PI * 2);
@@ -417,7 +417,7 @@ class WargamingSimulator {
             ctx.stroke();
             
             // Check mark
-            ctx.fillStyle = '#00f0ff';
+            ctx.fillStyle = '#006C35';
             ctx.font = '16px Arial';
             ctx.fillText('✓', threat.x, threat.y + 5);
         });
@@ -522,7 +522,7 @@ class WargamingSimulator {
         ctx.fill();
         
         // Body
-        ctx.fillStyle = '#0080ff';
+        ctx.fillStyle = '#008542';
         ctx.beginPath();
         ctx.arc(x, y, 25, 0, Math.PI * 2);
         ctx.fill();
@@ -534,7 +534,7 @@ class WargamingSimulator {
         ctx.fillText('👁', x, y + 7);
         
         // Label
-        ctx.fillStyle = '#0080ff';
+        ctx.fillStyle = '#008542';
         ctx.font = '12px Cairo';
         ctx.fillText('Blue-AI', x, y + 45);
     }
@@ -551,7 +551,7 @@ class WargamingSimulator {
         ctx.textAlign = 'right';
         ctx.fillText(this.isRunning ? (this.isPaused ? 'متوقف مؤقتاً' : 'جاري المحاكاة...') : 'في الانتظار', 180, 35);
         
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#006C35';
         ctx.fillText(`الجولة: ${this.roundNumber} / ${this.maxRounds}`, 180, 55);
     }
     
